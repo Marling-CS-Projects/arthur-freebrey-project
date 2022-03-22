@@ -1,6 +1,6 @@
 # Table of contents
 
-* [Some Generic Project](README.md)
+* [2D RPG](README.md)
 
 ## 1 Analysis <a href="#analysis" id="analysis"></a>
 
