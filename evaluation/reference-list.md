@@ -7,4 +7,5 @@
 * Zhu, L. (2020). The psychology behind video games during COVID ‐19 pandemic: A case study of Animal Crossing: New Horizons. _Human Behavior and Emerging Technologies_, 3(1). Available at: [https://onlinelibrary.wiley.com/doi/full/10.1002/hbe2.221](https://onlinelibrary.wiley.com/doi/full/10.1002/hbe2.221)
 * Farokhmanesh, M. (2021). _More than half of Americans turned to video games during lockdown_. \[online] The Verge. Available at: [https://www.theverge.com/2021/1/6/22215786/video-games-covid-19-animal-crossing-among-us.](https://www.theverge.com/2021/1/6/22215786/video-games-covid-19-animal-crossing-among-us.)
 * Pang, C. (2019). _Understanding Gamer Psychology: Why Do People Play Games? - Sekg_. \[online] Sekg. Available at: [https://www.sekg.net/gamer-psychology-people-play-games/.](https://www.sekg.net/gamer-psychology-people-play-games/)
+* Pegi.info. (2020). _How we rate games | Pegi Public Site_. \[online] Available at: [https://pegi.info/page/how-we-rate-games](https://pegi.info/page/how-we-rate-games)
 
