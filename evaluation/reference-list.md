@@ -8,4 +8,6 @@
 * Farokhmanesh, M. (2021). _More than half of Americans turned to video games during lockdown_. \[online] The Verge. Available at: [https://www.theverge.com/2021/1/6/22215786/video-games-covid-19-animal-crossing-among-us.](https://www.theverge.com/2021/1/6/22215786/video-games-covid-19-animal-crossing-among-us.)
 * Pang, C. (2019). _Understanding Gamer Psychology: Why Do People Play Games? - Sekg_. \[online] Sekg. Available at: [https://www.sekg.net/gamer-psychology-people-play-games/.](https://www.sekg.net/gamer-psychology-people-play-games/)
 * Pegi.info. (2020). _How we rate games | Pegi Public Site_. \[online] Available at: [https://pegi.info/page/how-we-rate-games](https://pegi.info/page/how-we-rate-games)
+* Small Business - Chron.com. (n.d.). _Mozilla Firefox System Requirements_. \[online] Available at: [https://smallbusiness.chron.com/mozilla-firefox-system-requirements-59076.html](https://smallbusiness.chron.com/mozilla-firefox-system-requirements-59076.html) \[Accessed 4 Jun. 2022].
+* code.visualstudio.com. (2022). _Requirements for Visual Studio Code_. \[online] Available at: [https://code.visualstudio.com/docs/supporting/requirements.](https://code.visualstudio.com/docs/supporting/requirements.)
 
