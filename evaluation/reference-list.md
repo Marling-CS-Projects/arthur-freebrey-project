@@ -10,4 +10,6 @@
 * Pegi.info. (2020). _How we rate games | Pegi Public Site_. \[online] Available at: [https://pegi.info/page/how-we-rate-games](https://pegi.info/page/how-we-rate-games)
 * Small Business - Chron.com. (n.d.). _Google Chrome System Requirements_. \[online] Available at: [https://smallbusiness.chron.com/google-chrome-software-requirements-48820.html](https://smallbusiness.chron.com/google-chrome-software-requirements-48820.html)\[Accessed 4 Jun. 2022].
 * code.visualstudio.com. (2022). _Requirements for Visual Studio Code_. \[online] Available at: [https://code.visualstudio.com/docs/supporting/requirements.](https://code.visualstudio.com/docs/supporting/requirements.)
+* Small Business - Chron.com. (n.d.). _Google Chrome System Requirements_. \[online] Available at: [https://smallbusiness.chron.com/mozilla-firefox-system-requirements-59076.html](https://smallbusiness.chron.com/mozilla-firefox-system-requirements-59076.html)\[Accessed 4 Jun. 2022].
+*
 
