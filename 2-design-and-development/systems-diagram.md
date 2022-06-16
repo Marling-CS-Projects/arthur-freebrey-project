@@ -2,7 +2,7 @@
 
 ## Systems Diagram
 
-![](<../.gitbook/assets/System Diagram.jpg>)
+![](../.gitbook/assets/System%20Diagram.jpg)
 
 This diagram shows the different parts of the game that I will focus on creating. I have split each section into smaller sub-sections. Throughout the development stage, I will pick one or two of these sections to focus on at a time to gradually build up and piece together the game. I have broken the project down this way as it roughly corresponds to the success criteria.
 
@@ -89,13 +89,12 @@ class Level extends Phaser Scene
     procedure create
         start music
         draw background
-        create players
-        create platforms
         create puzzle elements
         create enemies
         create obstacles
         create finishing position
-        create key bindings
+        create character
+        
     end procedure
     
     procedure update
