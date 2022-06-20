@@ -37,13 +37,12 @@ The solution should be easy to use and this is regarding all sections such as co
 This is the basic layout of the object to store the details of the game. This will be what is rendered as it will inherit all important code for the scenes.
 
 ```
-object Game
+object Main
     type: Phaser
-    parent: id of HTML element
-    width: width
-    height: height
-    physics: set up for physics
-    scenes: add all menus, levels and other scenes
+    width: innerwidth
+    height: innerheight
+    physics: physics setting up and parameters
+    scenes: menus, levels and other scenes
 end object
 
 render Game to HTML web page
@@ -54,29 +53,26 @@ render Game to HTML web page
 This shows the basic layout of code for a Phaser scene. It shows where each task will be executed.
 
 ```
-class Level extends Phaser Scene
+class CentreMap extends Phaser Scene
 
     procedure preload
-        load all sprites and music
+        load all sprites and sounds
     end procedure
     
     procedure create
-        start music
         draw background
-        create puzzle elements
         create enemies
         create obstacles
-        create finishing position
         create character
-        
+        create collision areas
+        create NPCs
     end procedure
     
     procedure update
         handle key presses
         move player
-        move interactable objects
+        handle dialogue
         update animations
-        check if player at exit
     end procedure
     
 end class
