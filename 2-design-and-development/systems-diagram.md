@@ -8,57 +8,27 @@ This system diagram represents the stages of the game development by showing dif
 
 ## Usability Features
 
-Usability is very important in my game since I want everybody to have an enjoyable experience playing without having to worry about anything other than the gameplay.
+Usability is very important in my game since I want everybody to have an enjoyable experience playing without having to worry about anything other than the gameplay. There are 5 keys areas of usability to make sure that the user experience is enjoyable.
 
 ### Effective
 
-Users can achieve the goal with completeness and accuracy. To do this, I will make it easy for the players to realise that they need to reach a goal in order to complete a level. I will make this goal clear to see so there is no confusion over where the players need to go.
-
-
-
-Users&#x20;
-
-#### Aims
-
-* Create a clear goal to reach to determine the end of a level
-* Create a clear goal for any multiplayer modes
+In my game users may not have clear levels or obstacles to complete but the player should still have a reward of completion through mini tasks throughout playing. These small mini objectives should keep the user engaged allowing them to have a sense of progress without directly aiming towards an end goal.
 
 ### Efficiency
 
-The speed and accuracy to which a user can complete the goal. To do this, I will create a menu system which is easy to navigate through in order for to find what you are looking for. The information which is more important can be found with less clicks.
-
-#### Aims
-
-* Create a menu system that is quick and easy to navigate through
-* Create a controls system that isn't too complicated but allows the player to do multiple actions
+Efficiency is the speed in which any user can complete a given goal or task which little difficulty. To help this, I will make sure that the UI is easy to navigate and does not take more than a few clicks to find any given setting or option.
 
 ### Engaging
 
-The solution is engaging for the user to use. To do this, I will create 5 levels and an online multiplayer mode to keep the players engaged and allow them to have fun while playing the game. Using vector style art will also make the game nicer to look at than blocks, so will draw more people in, keeping them engaged.
-
-#### Aims
-
-* Create a series of levels to work through
-* Create a multiplayer mode to play
-* Incorporate a style of game art the suits the game
+The solution must be engaging for the user to use allowing them to carry on enjoying the game. To do this, I will have each area having hidden sections and areas that the player can explore further as they progress throughout the game. This is designed to keep the user playing for a prolonged period of time and not just trying to complete the game as quickly as possible.
 
 ### Error Tolerant
 
-The solution should have as few errors as possible and if one does occur, it should be able to correct itself. To do this, I will write my code to manage as many different game scenarios as possible so that it will not crash when someone is playing it.
-
-#### Aims
-
-* The game doesn't crash
-* The game does not contain any bugs that damage the user experience
+The solution should have little or no errors, in the place of an error it must not be critical to the gameplay. I will achieve this through constant unit testing of my project making sure that key sections and features are all functioning as intended whilst developing before they get published.&#x20;
 
 ### Easy To Learn
 
-The solution should be easy to use and not be over complicated. To do this, I will create simple controls for the game. I will make sure that no more controls are added than are needed in order to keep them as simple as possible for the players.
-
-#### Aims
-
-* Create a list of controls for the game
-* Create an in-level guide that helps players learn how to play the game
+The solution should be easy to use and this is regarding all sections such as controls as well as game mechanics. I will make all the controls and game systems / mechanics simple since a complicated game that is hard to understand can make the whole experience unpleasant. However I also do not want the controls and mechanics too easy to allow them to still engaging.&#x20;
 
 ## Pseudocode for the Game
 
