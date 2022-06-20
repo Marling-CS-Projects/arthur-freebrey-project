@@ -8,11 +8,15 @@ This system diagram represents the stages of the game development by showing dif
 
 ## Usability Features
 
-Usability is an important aspect to my game as I want it to be accessible to all. There are 5 key points of usability to create the best user experience that I will be focusing on when developing my project. These are:
+Usability is very important in my game since I want everybody to have an enjoyable experience playing without having to worry about anything other than the gameplay.
 
 ### Effective
 
 Users can achieve the goal with completeness and accuracy. To do this, I will make it easy for the players to realise that they need to reach a goal in order to complete a level. I will make this goal clear to see so there is no confusion over where the players need to go.
+
+
+
+Users&#x20;
 
 #### Aims
 
