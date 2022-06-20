@@ -1,10 +1,10 @@
 # 2.1 Design Frame
 
+![](<../.gitbook/assets/image (11).png>)
+
 ## Systems Diagram
 
-![](../.gitbook/assets/System%20Diagram.jpg)
-
-This diagram shows the different parts of the game that I will focus on creating. I have split each section into smaller sub-sections. Throughout the development stage, I will pick one or two of these sections to focus on at a time to gradually build up and piece together the game. I have broken the project down this way as it roughly corresponds to the success criteria.
+This system diagram represents the stages of the game development by showing different parts of the game split up by category. Throughout my development I will choose a couple of the sections at a time to build a fully functioning game that is accessible in all the categories I have selected.
 
 ## Usability Features
 
