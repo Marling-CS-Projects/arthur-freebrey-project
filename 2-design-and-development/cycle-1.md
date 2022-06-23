@@ -18,13 +18,13 @@ However a lot of the code in this cycle may need to be rewritten later on and re
 
 ### Key Variables
 
-| Variable Name | Use          |
-| ------------- | ------------ |
-| create        | Initialises  |
-| update        |              |
-| mainMap       |              |
-| velocity(X,Y) |              |
-| player        |              |
+| Variable Name | Use                                                                                         |
+| ------------- | ------------------------------------------------------------------------------------------- |
+| create        | Initialises all the variables at the start of the game such as sprites.                     |
+| update        | Updates the position of the character and other information every frame                     |
+| mainMap       | Variable that stores the JSON information for the map and where each tile goes              |
+| velocity(X,Y) | The speed assigned to the player when key inputs are pressed determining how fast they move |
+| player        | Variable that stores all of the information and properties about the character.             |
 
 ### Pseudocode
 
