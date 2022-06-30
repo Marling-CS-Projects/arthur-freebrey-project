@@ -29,14 +29,135 @@ However a lot of the code in this cycle may need to be rewritten later on and re
 ### Pseudocode
 
 ```
-procedure do_something
-    
-end procedure
+class Preloader extends Phaser.Scene {
+  constructor() {
+    super("preloader");
+  }
+  preload() {
+    image(tiles/main_tiles.png);
+    tilemapTiledJSON(tiles/map-1.json);
+  }
+
+  create() {
+    this.scene.start("game");
+  }
+}
 ```
 
 ## Development
 
 ### Outcome
+
+The file game.ts is where lots of development will take place with importing separate files for individuals characters as enemies as well as preparing the location and map to take place. This is where I have imported different parts of my map that will be initialised upon loading by using the create function.
+
+{% tabs %}
+{% tab title="main.ts" %}
+```typescript
+import Phaser from "phaser";
+
+import Preloader from "./scenes/Preloader";
+import Game from "./scenes/game";
+
+export default new Phaser.Game({
+  type: Phaser.AUTO,
+  width: 1120,
+  height: 640,
+  physics: {
+    default: "arcade",
+    arcade: {
+      gravity: { y: 0 },
+    },
+  },
+  scene: [Preloader, Game],
+  scale: {
+    zoom: 1.464,
+  },
+});
+
+```
+{% endtab %}
+
+{% tab title="index.html" %}
+```html
+<html>
+  <head>
+    <title>testing</title>
+  </head>
+  <body>
+    <script src="main.ts" type="module"></script>
+    <style>
+      body {
+        padding: 0%;
+        margin: 0%;
+        padding-left: 7.5%;
+      }
+    </style>
+  </body>
+</html>
+
+```
+{% endtab %}
+
+{% tab title="game.ts" %}
+```typescript
+import Phaser from "phaser";
+
+export default class Game extends Phaser.Scene {
+  constructor() {
+    super("game");
+  }
+
+  preload() {}
+
+  create() {
+    const map = this.make.tilemap({ key: "map-1" });
+    const tileset = map.addTilesetImage("Serene_Village_XP", "tiles");
+
+    const island = map.createLayer("Island 1", tileset);
+    const island2 = map.createLayer("Island 2", tileset);
+    const pool = map.createLayer("Pool", tileset);
+    const trees5 = map.createLayer("Tree 5", tileset);
+    const trees4 = map.createLayer("Tree 4", tileset);
+    const trees3 = map.createLayer("Tree 3", tileset);
+    const trees2 = map.createLayer("Trees 2", tileset);
+    const trees = map.createLayer("Trees", tileset);
+    const bushes = map.createLayer("bushes etc", tileset);
+    const flowers = map.createLayer("flowers", tileset);
+    const rocks = map.createLayer("Rocks", tileset);
+    const house = map.createLayer("House", tileset);
+    const house_decor = map.createLayer("House decor", tileset);
+    const house_decor2 = map.createLayer("House decor 2", tileset);
+    const tippity = map.createLayer("Tippity top", tileset);
+    const inbetween = map.createLayer("inbetween", tileset);
+  }
+}
+
+```
+{% endtab %}
+
+{% tab title="Preloader.ts" %}
+```typescript
+import Phaser from "phaser";
+
+export default class Preloader extends Phaser.Scene {
+  constructor() {
+    super("preloader");
+  }
+  preload() {
+    this.load.image("tiles", "tiles/main_tiles.png");
+    this.load.tilemapTiledJSON("map-1", "tiles/map-1.json");
+  }
+
+  create() {
+    this.scene.start("game");
+  }
+}
+
+```
+{% endtab %}
+{% endtabs %}
+
+Using npm I will be able to easily install all packages with the **`npm install`** command which installs custom scripts too. Using these custom scripts, the command **`npm start`** will cause parcel to build and deploy the project to localhost:8000 where I can test my code and see updates in real time.
 
 ### Challenges
 
