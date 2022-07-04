@@ -64,9 +64,15 @@ procedure create
         this.player.animations.play('left');
         
     if (input = right) {
-        velocity.x = -velocity;
+        velocity.x = -velocity
         velocity.y = 0
         this.player.animations.play('right');
+        
+    // stationary    
+    if (input = none) {
+        velocity.x = 0
+        velocity.y = 0
+        this.player.animations.play('standing');
     
 end procedure
 ```
