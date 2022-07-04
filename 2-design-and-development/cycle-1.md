@@ -209,10 +209,6 @@ export default class Game extends Phaser.Scene {
     const house_decor2 = map.createLayer("House decor 2", tileset);
     const tippity = map.createLayer("Tippity top", tileset);
     const inbetween = map.createLayer("inbetween", tileset);
-
-    house.setCollisionByProperty({ collides: true });
-    rocks.setCollisionByProperty({ collides: true });
-    pool.setCollisionByProperty({ collides: true });
   }
 }
 

@@ -42,35 +42,17 @@ procedure create
     right = key bind for right arrow key
     up = key bind for arrow key
     down = key bind for down key
-    
-    if (input = up) {
-        velocity.x = 0
-        velocity.y = -velocity
-        this.player.animations.play('up');
-    
-    if (input = down) {
-        velocity.x = 0
-        velocity.y = -velocity
-        this.player.animations.play('down');
-    
-    if (input = left) {
-        velocity.x = -velocity
-        velocity.y = 0
-        this.player.animations.play('left');
-        
-    if (input = right) {
-        velocity.x = -velocity;
-        velocity.y = 0
-        this.player.animations.play('right');
-    
 end procedure
+
+
+
 ```
 
 ## Development
 
 ### Outcome
 
-Lots of the parts of the code such as the index.html file remain the same in this second cycle but most of the change will take place in the game.ts file since that contains most of the player and world attributes.
+The file game.ts is where lots of development will take place with importing separate files for individuals characters as enemies as well as preparing the location and map to take place. This is where I have imported different parts of my map that will be initialised upon loading by using the create function.
 
 {% tabs %}
 {% tab title="main.ts" %}
@@ -95,6 +77,27 @@ export default new Phaser.Game({
     zoom: 1.464,
   },
 });
+
+```
+{% endtab %}
+
+{% tab title="index.html" %}
+```html
+<html>
+  <head>
+    <title>testing</title>
+  </head>
+  <body>
+    <script src="main.ts" type="module"></script>
+    <style>
+      body {
+        padding: 0%;
+        margin: 0%;
+        padding-left: 7.5%;
+      }
+    </style>
+  </body>
+</html>
 
 ```
 {% endtab %}
@@ -138,9 +141,30 @@ export default class Game extends Phaser.Scene {
 }
 ```
 {% endtab %}
+
+{% tab title="Preloader.ts" %}
+```typescript
+import Phaser from "phaser";
+
+export default class Preloader extends Phaser.Scene {
+  constructor() {
+    super("preloader");
+  }
+  preload() {
+    this.load.image("tiles", "tiles/main_tiles.png");
+    this.load.tilemapTiledJSON("map-1", "tiles/map-1.json");
+  }
+
+  create() {
+    this.scene.start("game");
+  }
+}
+
+```
+{% endtab %}
 {% endtabs %}
 
-
+ad
 
 ### Challenges
 
