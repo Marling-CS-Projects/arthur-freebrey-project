@@ -26,6 +26,7 @@ In this development cycle my main aim is to create characters that move and inte
 ### Pseudocode
 
 ```
+// create config and information about the games properties
 config
     height: 1120
     width: 640
@@ -33,16 +34,20 @@ config
     scene: preloader, game
 end object
 
+// initialise variables and attributes for the game
 procedure create
     player = generatePlayer
     camera.follow(player)
     player.collideWorldBounds = true
     
+    
+    // create the variables for the keyboard input values
     left = key bind for left arrow key
     right = key bind for right arrow key
     up = key bind for arrow key
     down = key bind for down key
     
+    // what the character should do upon given keyboard inputs
     if (input = up) {
         velocity.x = 0
         velocity.y = -velocity
