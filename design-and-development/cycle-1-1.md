@@ -42,17 +42,35 @@ procedure create
     right = key bind for right arrow key
     up = key bind for arrow key
     down = key bind for down key
+    
+    if (input = up) {
+        velocity.x = 0
+        velocity.y = -velocity
+        this.player.animations.play('up');
+    
+    if (input = down) {
+        velocity.x = 0
+        velocity.y = -velocity
+        this.player.animations.play('down');
+    
+    if (input = left) {
+        velocity.x = -velocity
+        velocity.y = 0
+        this.player.animations.play('left');
+        
+    if (input = right) {
+        velocity.x = -velocity;
+        velocity.y = 0
+        this.player.animations.play('right');
+    
 end procedure
-
-
-
 ```
 
 ## Development
 
 ### Outcome
 
-The file game.ts is where lots of development will take place with importing separate files for individuals characters as enemies as well as preparing the location and map to take place. This is where I have imported different parts of my map that will be initialised upon loading by using the create function.
+Lots of the parts of the code such as the index.html file remain the same in this second cycle but most of the change will take place in the game.ts file since that contains most of the player and world attributes.
 
 {% tabs %}
 {% tab title="main.ts" %}
@@ -77,27 +95,6 @@ export default new Phaser.Game({
     zoom: 1.464,
   },
 });
-
-```
-{% endtab %}
-
-{% tab title="index.html" %}
-```html
-<html>
-  <head>
-    <title>testing</title>
-  </head>
-  <body>
-    <script src="main.ts" type="module"></script>
-    <style>
-      body {
-        padding: 0%;
-        margin: 0%;
-        padding-left: 7.5%;
-      }
-    </style>
-  </body>
-</html>
 
 ```
 {% endtab %}
@@ -141,30 +138,9 @@ export default class Game extends Phaser.Scene {
 }
 ```
 {% endtab %}
-
-{% tab title="Preloader.ts" %}
-```typescript
-import Phaser from "phaser";
-
-export default class Preloader extends Phaser.Scene {
-  constructor() {
-    super("preloader");
-  }
-  preload() {
-    this.load.image("tiles", "tiles/main_tiles.png");
-    this.load.tilemapTiledJSON("map-1", "tiles/map-1.json");
-  }
-
-  create() {
-    this.scene.start("game");
-  }
-}
-
-```
-{% endtab %}
 {% endtabs %}
 
-ad
+
 
 ### Challenges
 
@@ -178,10 +154,11 @@ Evidence for testing
 
 ### Tests
 
-| Test | Instructions                         | What I expect                                                                                | What actually happens                                                          | Pass/Fail |
-| ---- | ------------------------------------ | -------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------ | --------- |
-| 1    | Run code                             | The code should build with the console presenting information about where it is being hosted | As expected                                                                    | Pass      |
-| 2    | Connect to localhost:8000 on browser | Web page to load with all sections of the map present                                        | Parts of the map load in incorrect order causing visual glitches in appearance | Fail      |
+| Test | Instructions                                            | What I expect                                                                | What actually happens                                                                                         | Pass/Fail |
+| ---- | ------------------------------------------------------- | ---------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- | --------- |
+| 1    | Press keys / WASD                                       | The player should respond by moving around the screen in the given direction | As expected                                                                                                   | Pass      |
+| 2    | Press arrow keys                                        | Characters sprite to change to a different corresponding animation           | Character's sprite was half cut off implying the amount the sprite needs to change was too much or too little | Fail      |
+| 3    | Move character into an object with collision properties | Character to stop moving and not get past the object or wall                 | As expected                                                                                                   | Pass      |
 
 After this I went back to work out why the visual glitches were appearing which is when I realised the order in which parts of the map were being loaded caused them to appear in the wrong order on top of each other. I went back to edit my game.ts file to reorder all my layers to an order where they are being created in the visual order I would like them to.
 
