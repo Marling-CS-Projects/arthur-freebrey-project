@@ -42,10 +42,28 @@ procedure create
     right = key bind for right arrow key
     up = key bind for arrow key
     down = key bind for down key
+    
+    if (input = up) {
+        velocity.x = 0
+        velocity.y = -velocity
+        this.player.animations.play('up');
+    
+    if (input = down) {
+        velocity.x = 0
+        velocity.y = -velocity
+        this.player.animations.play('down');
+    
+    if (input = left) {
+        velocity.x = -velocity
+        velocity.y = 0
+        this.player.animations.play('left');
+        
+    if (input = right) {
+        velocity.x = -velocity;
+        velocity.y = 0
+        this.player.animations.play('right');
+    
 end procedure
-
-
-
 ```
 
 ## Development
