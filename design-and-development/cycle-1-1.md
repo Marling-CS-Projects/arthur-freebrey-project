@@ -84,6 +84,28 @@ end procedure
 Lots of the parts of the code such as the index.html file remain the same in this second cycle but most of the change will take place in the game.ts file since that contains most of the player and world attributes.
 
 {% tabs %}
+{% tab title="Preloader.ts" %}
+```typescript
+import Phaser from "phaser";
+
+export default class Preloader extends Phaser.Scene {
+  constructor() {
+    super("preloader");
+  }
+  preload() {
+    this.load.image("tiles", "tiles/main_tiles.png");
+    this.load.tilemapTiledJSON("map-1", "tiles/map-1.json");
+    this.load.atlas('faune', 'character/faune.png', 'character/faune.json');
+  }
+
+  create() {
+    this.scene.start("game");
+  }
+}
+
+```
+{% endtab %}
+
 {% tab title="main.ts" %}
 ```typescript
 import Phaser from "phaser";
@@ -141,10 +163,13 @@ export default class Game extends Phaser.Scene {
     const house_decor2 = map.createLayer("House decor 2", tileset);
     const tippity = map.createLayer("Tippity top", tileset);
     const inbetween = map.createLayer("inbetween", tileset);
+    
+    //house.setCollisionByProperty({ collides: true });
+    //rocks.setCollisionByProperty({ collides: true });
+    //pool.setCollisionByProperty({ collides: true });
+    
+    const faune = this.add.sprite(128, 128, 'faune', 'run-side-4.png')
 
-    house.setCollisionByProperty({ collides: true });
-    rocks.setCollisionByProperty({ collides: true });
-    pool.setCollisionByProperty({ collides: true });
   }
 }
 ```
@@ -167,9 +192,10 @@ Evidence for testing
 
 | Test | Instructions                                            | What I expect                                                                | What actually happens                                                                                         | Pass/Fail |
 | ---- | ------------------------------------------------------- | ---------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- | --------- |
-| 1    | Press keys / WASD                                       | The player should respond by moving around the screen in the given direction | As expected                                                                                                   | Pass      |
-| 2    | Press arrow keys                                        | Characters sprite to change to a different corresponding animation           | Character's sprite was half cut off implying the amount the sprite needs to change was too much or too little | Fail      |
-| 3    | Move character into an object with collision properties | Character to stop moving and not get past the object or wall                 | As expected                                                                                                   | Pass      |
+| 1    | Run code                                                | Character should appear on screen on top of the map                          | Character texture not loaded with texture frame missing                                                       |           |
+| 2    | Press keys / WASD                                       | The player should respond by moving around the screen in the given direction | As expected                                                                                                   | Pass      |
+| 3    | Press arrow keys                                        | Characters sprite to change to a different corresponding animation           | Character's sprite was half cut off implying the amount the sprite needs to change was too much or too little | Fail      |
+| 4    | Move character into an object with collision properties | Character to stop moving and not get past the object or wall                 | As expected                                                                                                   | Pass      |
 
 After this I went back to work out why the visual glitches were appearing which is when I realised the order in which parts of the map were being loaded caused them to appear in the wrong order on top of each other. I went back to edit my game.ts file to reorder all my layers to an order where they are being created in the visual order I would like them to.
 
