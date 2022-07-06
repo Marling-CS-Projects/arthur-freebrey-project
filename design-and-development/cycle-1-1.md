@@ -88,90 +88,143 @@ Lots of the parts of the code such as the index.html file remain the same in thi
 ```typescript
 import Phaser from "phaser";
 
-export default class Preloader extends Phaser.Scene {
-  constructor() {
-    super("preloader");
-  }
-  preload() {
-    this.load.image("tiles", "tiles/main_tiles.png");
-    this.load.tilemapTiledJSON("map-1", "tiles/map-1.json");
-    this.load.atlas('faune', 'character/faune.png', 'character/faune.json');
-  }
+export default class Preloader extends Phaser.Scene
+{
+    constructor()
+    {
+        super('preloader')
+    }
 
-  create() {
-    this.scene.start("game");
-  }
+    preload()
+    {
+        this.load.image('tiles', 'tiles/Serene_Village_16x16.png');
+        this.load.tilemapTiledJSON('mainmap', 'tiles/mainmap.json');
+        this.load.atlas('faune', 'character/faune.png', 'character/faune.json')
+    } 
+
+    create()
+    {
+        this.scene.start('game')
+    }
 }
-
 ```
 {% endtab %}
 
 {% tab title="main.ts" %}
 ```typescript
-import Phaser from "phaser";
+import Phaser, { Scale } from 'phaser'
 
-import Preloader from "./scenes/Preloader";
-import Game from "./scenes/game";
+import Preloader from './scenes/Preloader'
+import Game from './scenes/game'
 
-export default new Phaser.Game({
-  type: Phaser.AUTO,
-  width: 1120,
-  height: 640,
-  physics: {
-    default: "arcade",
-    arcade: {
-      gravity: { y: 0 },
-    },
-  },
-  scene: [Preloader, Game],
-  scale: {
-    zoom: 1.464,
-  },
-});
+const config: Phaser.Types.Core.GameConfig = {
+	type: Phaser.AUTO,
+	width: innerWidth,
+	height: innerHeight,
+	physics: {
+		default: 'arcade',
+		arcade: {
+			gravity: { y: 0 }
+		}
+	},
+	scene: [Preloader, Game],
+	scale: {
+		zoom: 2
+	}
+}
+
+export default new Phaser.Game(config)
 
 ```
 {% endtab %}
 
 {% tab title="game.ts" %}
 ```typescript
-import Phaser from "phaser";
+import Phaser from 'phaser'
 
-export default class Game extends Phaser.Scene {
-  constructor() {
-    super("game");
-  }
+export default class Game extends Phaser.Scene
+{
+    private cursors!: Phaser.Types.Input.Keyboard.CursorKeys
+    private faune!: Phaser.GameObjects.Sprite
+	constructor()
+	{
+		super('game')
+	}
 
-  preload() {}
+	preload()
+    {
+        this.cursors = this.input.keyboard.createCursorKeys()
+    }
 
-  create() {
-    const map = this.make.tilemap({ key: "map-1" });
-    const tileset = map.addTilesetImage("Serene_Village_XP", "tiles");
+    create()
+    {
+       const map = this.make.tilemap({ key: 'mainmap' })
+       const tileset = map.addTilesetImage('Serene_Village_16x16', 'tiles')
 
-    const island = map.createLayer("Island 1", tileset);
-    const island2 = map.createLayer("Island 2", tileset);
-    const pool = map.createLayer("Pool", tileset);
-    const trees5 = map.createLayer("Tree 5", tileset);
-    const trees4 = map.createLayer("Tree 4", tileset);
-    const trees3 = map.createLayer("Tree 3", tileset);
-    const trees2 = map.createLayer("Trees 2", tileset);
-    const trees = map.createLayer("Trees", tileset);
-    const bushes = map.createLayer("bushes etc", tileset);
-    const flowers = map.createLayer("flowers", tileset);
-    const rocks = map.createLayer("Rocks", tileset);
-    const house = map.createLayer("House", tileset);
-    const house_decor = map.createLayer("House decor", tileset);
-    const house_decor2 = map.createLayer("House decor 2", tileset);
-    const tippity = map.createLayer("Tippity top", tileset);
-    const inbetween = map.createLayer("inbetween", tileset);
+       const Island1 = map.createLayer('Island1', tileset)
+       const Rocks = map.createLayer('Rocks', tileset)
+
+    //    Rocks.setCollisionByProperty({ collides: true })
+
+    //    const debugGraphics = this.add.graphics().setAlpha(0.7)
+    //    Rocks.renderDebug(debugGraphics, {
+    //     tileColor: null,
+    //     collidingTileColor: new Phaser.Display.Color(243, 234, 48, 255),
+    //     faceColor: new Phaser.Display.Color(40, 39, 37, 255)
+    //    })
+
+    this.faune = this.add.sprite(128, 128, 'faune', 'walk-down-3.png')
+
+    this.anims.create({
+        key: 'faune-idle-down',
+        frames: [{ key: 'faune', frame: 'walk-down-3.png'}]
+    })
+
+    this.anims.create({
+        key: 'faune-idle-up',
+        frames: [{ key: 'faune', frame: 'walk-up-3.png'}]
+    })
+
+    this.anims.create({
+        key: 'faune-idle-side',
+        frames: [{ key: 'faune', frame: 'walk-side-3.png'}]
+    })
     
-    //house.setCollisionByProperty({ collides: true });
-    //rocks.setCollisionByProperty({ collides: true });
-    //pool.setCollisionByProperty({ collides: true });
-    
-    const faune = this.add.sprite(128, 128, 'faune', 'run-side-4.png')
+    this.anims.create({ 
+        key: 'faune-run-down',
+        frames: this.anims.generateFrameNames('faune', {start: 1, end: 8, prefix: 'run-down-', suffix: '.png'}),
+        repeat: -1,
+        frameRate: 15
 
-  }
+    })
+
+    this.anims.create({ 
+        key: 'faune-run-up',
+        frames: this.anims.generateFrameNames('faune', {start: 1, end: 8, prefix: 'run-up-', suffix: '.png'}),
+        repeat: -1,
+        frameRate: 15
+
+    })
+
+    this.anims.create({ 
+        key: 'faune-run-side',
+        frames: this.anims.generateFrameNames('faune', {start: 1, end: 8, prefix: 'run-side-', suffix: '.png'}),
+        repeat: -1,
+        frameRate: 15
+
+    })
+
+
+    this.faune.anims.play('faune-run-down')
+    }
+
+    update(t: number, dt: number){
+        if (!this.cursors || !this.faune){
+            return
+        }
+    }
 }
+
 ```
 {% endtab %}
 {% endtabs %}
