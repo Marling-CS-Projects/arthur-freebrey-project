@@ -192,7 +192,7 @@ export default class Game extends Phaser.Scene
     
     this.anims.create({ 
         key: 'faune-run-down',
-        frames: this.anims.generateFrameNames('faune', {start: 1, end: 8, prefix: 'run-down-', suffix: '.png'}),
+        frames: this.anims.generateFrameNames('faune', {start: 0, end: 8, prefix: 'run-down-', suffix: '.png'}),
         repeat: -1,
         frameRate: 15
 
@@ -200,7 +200,7 @@ export default class Game extends Phaser.Scene
 
     this.anims.create({ 
         key: 'faune-run-up',
-        frames: this.anims.generateFrameNames('faune', {start: 1, end: 8, prefix: 'run-up-', suffix: '.png'}),
+        frames: this.anims.generateFrameNames('faune', {start: 0, end: 8, prefix: 'run-up-', suffix: '.png'}),
         repeat: -1,
         frameRate: 15
 
@@ -208,7 +208,7 @@ export default class Game extends Phaser.Scene
 
     this.anims.create({ 
         key: 'faune-run-side',
-        frames: this.anims.generateFrameNames('faune', {start: 1, end: 8, prefix: 'run-side-', suffix: '.png'}),
+        frames: this.anims.generateFrameNames('faune', {start: 0, end: 8, prefix: 'run-side-', suffix: '.png'}),
         repeat: -1,
         frameRate: 15
 
@@ -245,12 +245,12 @@ Evidence for testing
 
 | Test | Instructions                                            | What I expect                                                                | What actually happens                                                                                         | Pass/Fail |
 | ---- | ------------------------------------------------------- | ---------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- | --------- |
-| 1    | Run code                                                | Character should appear on screen on top of the map                          | Character texture not loaded with texture frame missing                                                       |           |
+| 1    | Run code                                                | Character should appear on screen on top of the map                          | Character texture not loaded with texture frame missing                                                       | Fail      |
 | 2    | Press keys / WASD                                       | The player should respond by moving around the screen in the given direction | As expected                                                                                                   | Pass      |
 | 3    | Press arrow keys                                        | Characters sprite to change to a different corresponding animation           | Character's sprite was half cut off implying the amount the sprite needs to change was too much or too little | Fail      |
 | 4    | Move character into an object with collision properties | Character to stop moving and not get past the object or wall                 | As expected                                                                                                   | Pass      |
 
-After this I went back to work out why the visual glitches were appearing which is when I realised the order in which parts of the map were being loaded caused them to appear in the wrong order on top of each other. I went back to edit my game.ts file to reorder all my layers to an order where they are being created in the visual order I would like them to.
+After this I went back to work out why the sprite issues weren't working and was due to the increments of how the image sprite stages were going up, to fix this I changed them from decimal increments to integer stages.
 
 {% code title="game.ts" %}
 ```typescript
