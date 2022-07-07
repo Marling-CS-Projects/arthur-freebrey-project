@@ -8,9 +8,9 @@ In this development cycle my main aim is to create characters that move and inte
 
 * [x] Create collision properties for certain parts of the map
 * [x] Create a character
-* [ ] Make the character move on keyboard inputs
-* [ ] Assign the character a sprite that interacts with movement
-* [ ] Allow the character to respond to the collision properties in the map
+* [x] Make the character move on keyboard inputs
+* [x] Assign the character a sprite that interacts with movement
+* [x] Allow the character to respond to the collision properties in the map
 
 ### Usability Features
 
@@ -19,9 +19,10 @@ In this development cycle my main aim is to create characters that move and inte
 | Variable Name         | Use                                                                                               |
 | --------------------- | ------------------------------------------------------------------------------------------------- |
 | velocity(X,Y)         | The speed assigned to the player when key inputs are pressed determining how fast they move       |
-| player                | Variable that stores all of the information and properties about the character.                   |
+| player / faune        | Variable that stores all of the information and properties about the character.                   |
 | left, right, up, down | Stores the information about keyboard inputs allowing them to be assigned to player movement      |
 | config                | Stores information about the game resolution, physics and other data to start the game correctly. |
+|                       |                                                                                                   |
 
 ### Pseudocode
 
@@ -97,8 +98,8 @@ export default class Preloader extends Phaser.Scene
 
     preload()
     {
-        this.load.image('tiles', 'tiles/Serene_Village_16x16.png');
-        this.load.tilemapTiledJSON('mainmap', 'tiles/mainmap.json');
+        this.load.image('tiles', 'tiles/Serene_Village_16x16_extruded.png');
+        this.load.tilemapTiledJSON('mainmap', 'tiles/mainmaptest.json');
         this.load.atlas('faune', 'character/faune.png', 'character/faune.json')
     } 
 
@@ -124,7 +125,8 @@ const config: Phaser.Types.Core.GameConfig = {
 	physics: {
 		default: 'arcade',
 		arcade: {
-			gravity: { y: 0 }
+			gravity: { y: 0 },
+			// debug: true
 		}
 	},
 	scene: [Preloader, Game],
@@ -285,9 +287,9 @@ export default class Game extends Phaser.Scene
 
 ### Challenges
 
-* Getting web page to load after install the Phaser.js library
-* Exporting Tiled maps to the right format to use
-* Loading tile layers in certain orders so everything is visible&#x20;
+Throughout this development cycle I faced many challenges since I now had to work with new aspects such as player inputs as well as responding collision to the character. Problems arose when trying to create these aspects of the game due to some outdated functions and documentation regarding the phaser library. An example of this I found was the way layers with collisions in Phaser used to be initialised by **`createStaticLayer.map('name', tileset)`**&#x20;
+
+However my solution to this old outdated function was to instead initialise the layers as their own independent variables by writing **`const name = map.createLayer('name', tileset)`**. This also was useful later on when trying to group different layers that needed collision together for more readable code.&#x20;
 
 ## Testing
 
