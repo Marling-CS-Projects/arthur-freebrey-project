@@ -164,24 +164,46 @@ export default class Game extends Phaser.Scene
        const tileset = map.addTilesetImage('Serene_Village_16x16', 'tiles', 16, 16, 1, 2)
 
        const water = map.createLayer('Water', tileset)
+       const WaterWalk = map.createLayer('Waterwalk', tileset)
+       const IslandUnder = map.createLayer('Islandunder', tileset)
        const Island1 = map.createLayer('Island1', tileset)
        const Island2 = map.createLayer('Island2', tileset)
        const Rocks = map.createLayer('Rocks', tileset)
+       const Decor = map.createLayer('Decor', tileset)
+       const Bushes = map.createLayer('Bushes', tileset)
+       const House_under = map.createLayer('House under', tileset)
+       const Housedecor = map.createLayer('House decor',tileset)
+       const House = map.createLayer('House', tileset)
+       const Houseontop = map.createLayer('House Ontop', tileset)
+       const Tree1 = map.createLayer('Tree1', tileset)
+       const Tree2 = map.createLayer('Tree2', tileset)
+       const Tree3 = map.createLayer('Tree3', tileset)
+       const Tree4 = map.createLayer('Tree4', tileset)
 
+       House.setCollisionByProperty({ collides: true})
+       Housedecor.setCollisionByProperty({ collides: true })
+       Houseontop.setCollisionByProperty({ collides : true })
+       Bushes.setCollisionByProperty({collides: true})
        Rocks.setCollisionByProperty({ collides: true })
        Island1.setCollisionByProperty({ collides: true })
        water.setCollisionByProperty({ collides: true})
        Island2.setCollisionByProperty({ collides: true})
+       Bushes.setCollisionByProperty({ collides: true })
+       Tree1.setCollisionByProperty({ collides: true })
+       Tree2.setCollisionByProperty({ collides: true })
+       Tree3.setCollisionByProperty({ collides: true })
+       Tree4.setCollisionByProperty({ collides: true })
 
-    //    const debugGraphics = this.add.graphics().setAlpha(0.7)
-    //    Island1.renderDebug(debugGraphics, {
-    //     tileColor: null,
-    //     collidingTileColor: new Phaser.Display.Color(243, 234, 48, 255),
-    //     faceColor: new Phaser.Display.Color(40, 39, 37, 255)
-    //    })
+
+       const debugGraphics = this.add.graphics().setAlpha(0.7)
+       water.renderDebug(debugGraphics, {
+        tileColor: null,
+        collidingTileColor: new Phaser.Display.Color(243, 234, 48, 255),
+        faceColor: new Phaser.Display.Color(40, 39, 37, 255)
+       })
 
     this.faune = this.physics.add.sprite(480, 235, 'faune', 'walk-down-3.png')
-    this.faune.body.setSize(this.faune.width * 0.5, this.faune.height * 0.8)
+    this.faune.body.setSize(this.faune.width * 0.5, this.faune.height * 0.7)
 
     this.anims.create({
         key: 'faune-idle-down',
@@ -229,8 +251,16 @@ export default class Game extends Phaser.Scene
     this.physics.add.collider(this.faune, Rocks)
     this.physics.add.collider(this.faune, Island2)
     this.physics.add.collider(this.faune, water)
+    this.physics.add.collider(this.faune, House)
+    this.physics.add.collider(this.faune, Housedecor)
+    this.physics.add.collider(this.faune, Tree1)
+    this.physics.add.collider(this.faune, Tree2)
+    this.physics.add.collider(this.faune, Tree3)
+    this.physics.add.collider(this.faune, Tree4)
+    this.physics.add.collider(this.faune, Houseontop)
 
     this.cameras.main.startFollow(this.faune, true,)
+    this.cameras.main.setBounds(-436, -200.5, 1833, 887, true)
     // this.cameras.main.centerOn(innerWidth, innerHeight)
 
     }
@@ -258,7 +288,6 @@ export default class Game extends Phaser.Scene
 
         }
         else if (this.cursors.up?.isDown) {
-            
             this.faune.anims.play('faune-run-up', true)
             this.faune.setVelocity(0, -speed)
         }
@@ -289,7 +318,9 @@ export default class Game extends Phaser.Scene
 
 Throughout this development cycle I faced many challenges since I now had to work with new aspects such as player inputs as well as responding collision to the character. Problems arose when trying to create these aspects of the game due to some outdated functions and documentation regarding the phaser library. An example of this I found was the way layers with collisions in Phaser used to be initialised by **`createStaticLayer.map('name', tileset)`**&#x20;
 
-However my solution to this old outdated function was to instead initialise the layers as their own independent variables by writing **`const name = map.createLayer('name', tileset)`**. This also was useful later on when trying to group different layers that needed collision together for more readable code.&#x20;
+However my solution to this old outdated function was to instead initialise the layers as their own independent variables by writing **`const name = map.createLayer('name', tileset)`**. This also was useful later on when trying to group different layers that needed collision together for more readable code. \
+\
+Another problem I had with this development cycle was trying to get the camera to follow the camera but then not go outside the boundaries I had set. For some reason the game boundaries were not being set to the pixel measurements I had provided so having to find a workaround for this was quite difficult.
 
 ## Testing
 
