@@ -673,15 +673,15 @@ export default class Game extends Phaser.Scene
 ```
 {% endcode %}
 
+### Tests
 
+| Test | Instructions                                            | What I expect                                                                | What actually happens | Pass/Fail |
+| ---- | ------------------------------------------------------- | ---------------------------------------------------------------------------- | --------------------- | --------- |
+| 1    | Run code                                                | Character should appear on screen on top of the map                          | As expected           | Pass      |
+| 2    | Press keys / WASD                                       | The player should respond by moving around the screen in the given direction | As expected           | Pass      |
+| 3    | Press arrow keys                                        | Characters sprite to change to a different corresponding animation           | As expected           | Pass      |
+| 4    | Move character into an object with collision properties | Character to stop moving and not get past the object or wall                 | As expected           | Pass      |
 
-| Test | Instructions                         | What I expect                                                                                | What actually happens | Pass/Fail |
-| ---- | ------------------------------------ | -------------------------------------------------------------------------------------------- | --------------------- | --------- |
-| 1    | Run code                             | The code should build with the console presenting information about where it is being hosted | As expected           | Pass      |
-| 2    | Connect to localhost:8000 on browser | Web page to load with all sections of the map present                                        | As expected           | Pass      |
+{% embed url="https://youtu.be/xtesQxUoG_Q" %}
 
-### Evidence
-
-![](<../.gitbook/assets/image (12).png>)
-
-This image shows the map I have created and designed where all the layers of the map have loaded in the correct order I specified in my game.ts file.
+Here is a video of me demonstrating working character movements on a map made for testing and demonstrating working collisions too through debugging the player hitbox to make it more visual.
