@@ -18,7 +18,7 @@ This development cycle was focused on creating simple combat mechanics for later
 
 | Variable Name         | Use                                                                                               |
 | --------------------- | ------------------------------------------------------------------------------------------------- |
-| velocity(X,Y)         | The speed assigned to the player when key inputs are pressed determining how fast they move       |
+| enemy                 | Holds the information about the enemies such as hitbox information                                |
 | player / faune        | Variable that stores all of the information and properties about the character.                   |
 | left, right, up, down | Stores the information about keyboard inputs allowing them to be assigned to player movement      |
 | config                | Stores information about the game resolution, physics and other data to start the game correctly. |
