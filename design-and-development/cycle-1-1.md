@@ -142,44 +142,7 @@ export default new Phaser.Game(config)
 
 {% tab title="game.ts" %}
 ```typescript
-import Phaser from 'phaser'
-
-export default class Game extends Phaser.Scene
-{
-    private cursors!: Phaser.Types.Input.Keyboard.CursorKeys
-    private faune!: Phaser.Physics.Arcade.Sprite
-	constructor()
-	{
-		super('game')
-	}
-
-	preload()
-    {
-        this.cursors = this.input.keyboard.createCursorKeys()
-    }
-
-    create()
-    {
-       const map = this.make.tilemap({ key: 'mainmap' })
-       const tileset = map.addTilesetImage('Serene_Village_16x16', 'tiles', 16, 16, 1, 2)
-
-       const water = map.createLayer('Water', tileset)
-       const WaterWalk = map.createLayer('Waterwalk', tileset)
-       const IslandUnder = map.createLayer('Islandunder', tileset)
-       const Island1 = map.createLayer('Island1', tileset)
-       const Island2 = map.createLayer('Island2', tileset)
-       const Rocks = map.createLayer('Rocks', tileset)
-       const Decor = map.createLayer('Decor', tileset)
-       const Bushes = map.createLayer('Bushes', tileset)
-       const House_under = map.createLayer('House under', tileset)
-       const Housedecor = map.createLayer('House decor',tileset)
-       const House = map.createLayer('House', tileset)
-       const Houseontop = map.createLayer('House Ontop', tileset)
-       const Tree1 = map.createLayer('Tree1', tileset)
-       const Tree2 = map.createLayer('Tree2', tileset)
-       const Tree3 = map.createLayer('Tree3', tileset)
-       const Tree4 = map.createLayer('Tree4', tileset)
-
+(Lines 39-120)   
        House.setCollisionByProperty({ collides: true})
        Housedecor.setCollisionByProperty({ collides: true })
        Houseontop.setCollisionByProperty({ collides : true })
@@ -193,14 +156,6 @@ export default class Game extends Phaser.Scene
        Tree2.setCollisionByProperty({ collides: true })
        Tree3.setCollisionByProperty({ collides: true })
        Tree4.setCollisionByProperty({ collides: true })
-
-
-       const debugGraphics = this.add.graphics().setAlpha(0.7)
-       water.renderDebug(debugGraphics, {
-        tileColor: null,
-        collidingTileColor: new Phaser.Display.Color(243, 234, 48, 255),
-        faceColor: new Phaser.Display.Color(40, 39, 37, 255)
-       })
 
     this.faune = this.physics.add.sprite(480, 235, 'faune', 'walk-down-3.png')
     this.faune.body.setSize(this.faune.width * 0.8, this.faune.height * 0.7)
