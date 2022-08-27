@@ -1,4 +1,4 @@
-# 2.2.2 Cycle 3
+# 2.2.2 Cycle 4
 
 ## Design
 
@@ -8,11 +8,10 @@ This development cycle was focused on creating simple combat mechanics for later
 
 * [x] Create animations for player combat
 * [x] Make entities to act as weapons
-* [ ] Create enemies characters that interact with the map
+* [x] Create enemies characters that interact with the map
 * [ ] Have the enemy characters follow and chase the player if in range
-* [ ] Have the enemy characters interact with weapons and take damage accordingly
 
-### Usability Features
+## Usability Features
 
 ### Key Variables
 

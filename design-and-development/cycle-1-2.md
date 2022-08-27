@@ -124,6 +124,8 @@ this.cameras.main.setBounds(-436, -200.5, 1833, 887, true)
 | 2    | Attempt to move character       | Player moves around and the camera moves accordingly                                      | As expected           | Pass      |
 | 3    | Move character to border of map | Camera should stop following the camera once it collides with the border to hide barriers | As expected           | Pass      |
 
+
+
 {% embed url="https://youtu.be/xtesQxUoG_Q" %}
 
-This video demonstrates the character moving around the map with the camera following the character's movements until it reaches the world border and stops tracking the character until it is able to do so again.
+Here is a video of me demonstrating working character movements on a map made for testing and demonstrating working collisions too through debugging the player hitbox to make it more visual.
