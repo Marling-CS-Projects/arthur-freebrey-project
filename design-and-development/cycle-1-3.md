@@ -6,10 +6,10 @@
 
 This development cycle was focused on creating simple combat mechanics for later levels and basic enemies will follow and attack the player. Since the player can now properly move as shown in [Cycle 2](cycle-1-1.md) I would like to add suiting combat mechanics and animations to use for the character.
 
-* [x] Create animations for player combat
-* [x] Make entities to act as weapons
-* [x] Create enemies characters that interact with the map
+* [x] Create enemies characters that move in random directions
+* [x] Make enemy characters interact with the map and collide with walls
 * [ ] Have the enemy characters follow and chase the player if in range
+* [x] Enemy characters to collide with the player
 
 ## Usability Features
 
@@ -21,59 +21,36 @@ This development cycle was focused on creating simple combat mechanics for later
 | player / faune        | Variable that stores all of the information and properties about the character.                   |
 | left, right, up, down | Stores the information about keyboard inputs allowing them to be assigned to player movement      |
 | config                | Stores information about the game resolution, physics and other data to start the game correctly. |
+| randomDirection       | Variable that stores and calculates the new direction for the enemy character to randomly move to |
 
 ### Pseudocode
 
 ```
-// create config and information about the games properties
-config
-    height: 1120
-    width: 640
-    physics: no gravity
-    scene: preloader, game
-end object
-
-// initialise variables and attributes for the game
-procedure create
-    player = generatePlayer
-    camera.follow(player)
-    player.collideWorldBounds = true
+const lizards
+    lizards.collideWorldBounds = true
+    lizards.collidePlayer = true
     
+Directions = (
+    UP,
+    DOWN,
+    LEFT,
+    RIGHT
+)
     
-    // create the variables for the keyboard input values
-    left = key bind for left arrow key
-    right = key bind for right arrow key
-    up = key bind for arrow key
-    down = key bind for down key
-    
-    // what the character should do upon given keyboard inputs
-    if (input = up) {
-        velocity.x = 0
-        velocity.y = -velocity
-        this.player.animations.play('up');
-    
-    if (input = down) {
-        velocity.x = 0
-        velocity.y = -velocity
-        this.player.animations.play('down');
-    
-    if (input = left) {
-        velocity.x = -velocity
-        velocity.y = 0
-        this.player.animations.play('left');
-        
-    if (input = right) {
-        velocity.x = -velocity
-        velocity.y = 0
-        this.player.animations.play('right');
-        
-    // stationary    
-    if (input = none) {
-        velocity.x = 0
-        velocity.y = 0
-        this.player.animations.play('standing');
-    
+procedure randomDirections = {
+    newDirection = random.math(0,3)
+    while (newDirection = exclude)
+    {
+        newDirection = random.math(0, 3)
+    }
+    return newDirection
 end procedure
+
+const movement = {
+    delay = 1500
+    direction = newDirection
+
+lizard.move(movement, loop)
 ```
 
 ## Development
