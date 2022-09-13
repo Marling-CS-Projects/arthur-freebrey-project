@@ -9,9 +9,7 @@ This development cycle was focused on creating simple combat mechanics for later
 * [x] Create enemies characters that move in random directions
 * [x] Make enemy characters interact with the map and collide with walls
 * [x] Enemy characters to collide with the player
-* [ ] Have the enemy characters follow and chase the player if in range
-
-
+* [x] Enemy character having movement animations&#x20;
 
 ## Usability Features
 
@@ -163,15 +161,9 @@ export default class Lizard extends Phaser.Physics.Arcade.Sprite
 {% endtab %}
 {% endtabs %}
 
-
-
 ### Challenges
 
-Throughout this development cycle I faced many challenges since I now had to work with new aspects such as player inputs as well as responding collision to the character. Problems arose when trying to create these aspects of the game due to some outdated functions and documentation regarding the phaser library. An example of this I found was the way layers with collisions in Phaser used to be initialised by **`createStaticLayer.map('name', tileset)`**&#x20;
-
-However my solution to this old outdated function was to instead initialise the layers as their own independent variables by writing **`const name = map.createLayer('name', tileset)`**. This also was useful later on when trying to group different layers that needed collision together for more readable code. \
-\
-Another problem I had with this development cycle was trying to get the camera to follow the camera but then not go outside the boundaries I had set. For some reason the game boundaries were not being set to the pixel measurements I had provided so having to find a workaround for this was quite difficult.
+Throughout this development cycle I faced many challenges in trying to develop an enemy character such as getting the code abstracted into its own file for the enemy without having to bloat the main game.ts file. The reason this became an issue was due to multiple errors found in importing the code and using it inside my create function. How I tackled this was creating individual files for both the enemy character and the animations separately so I can import them both separately leading to less conflict errors. After this change I decided to do the same for the player character making cleaner and less bloated code.
 
 ## Testing
 
