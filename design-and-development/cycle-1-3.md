@@ -163,7 +163,9 @@ export default class Lizard extends Phaser.Physics.Arcade.Sprite
 
 ### Challenges
 
-Throughout this development cycle I faced many challenges in trying to develop an enemy character such as getting the code abstracted into its own file for the enemy without having to bloat the main game.ts file. The reason this became an issue was due to multiple errors found in importing the code and using it inside my create function. How I tackled this was creating individual files for both the enemy character and the animations separately so I can import them both separately leading to less conflict errors. After this change I decided to do the same for the player character making cleaner and less bloated code.
+Throughout this development cycle I faced many challenges in trying to develop an enemy character such as getting the code abstracted into its own file for the enemy without having to bloat the main game.ts file. The reason this became an issue was due to multiple errors found in importing the code and using it inside my create function. How I tackled this was creating individual files for both the enemy character and the animations separately so I can import them both separately leading to less conflict errors. After this change I decided to do the same for the player character making cleaner and less bloated code.\
+\
+Another challenge I faced throughout my development&#x20;
 
 ## Testing
 
