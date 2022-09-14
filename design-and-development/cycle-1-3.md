@@ -319,8 +319,8 @@ export {
 | ---- | ------------------------------------------- | -------------------------------------------------------------------------------------------------------- | --------------------------------------------------------- | --------- |
 | 1    | Run code                                    | Lizard should appear on screen on the map                                                                | As expected                                               | Pass      |
 | 2    | Wait and watch enemy                        | Lizard should move around in random directions and collide with walls prompting another direction change | As expected                                               | Pass      |
-| 3    | Move player character to collide with enemy | Lizard either to keep pushing against the character and stop or change direction                         | As expected, Lizard resists the player and pushes against | Pass      |
+| 3    | Move player character to collide with enemy | Lizard either to keep pushing against the character and stop or change direction                         | As expected, Lizard resists the player and pushes against | Passem    |
 
-{% embed url="https://youtu.be/xtesQxUoG_Q" %}
+{% embed url="https://youtu.be/NcZtR6avPNU" %}
 
-Here is a video of me demonstrating working character movements on a map made for testing and demonstrating working collisions too through debugging the player hitbox to make it more visual.
+This video demonstrates how the lizard movement operates in testing as well as showing the collisions and how this works with world borders as well as the player.
