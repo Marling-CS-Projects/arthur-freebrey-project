@@ -1,15 +1,16 @@
-# 2.2.2 Cycle 4
+# 2.2.2 Cycle 5
 
 ## Design
 
 ### Objectives
 
-This development cycle was focused on creating simple combat mechanics for later levels and basic enemies will follow and attack the player. Since the player can now properly move as shown in [Cycle 2](cycle-1-1.md) I would like to add suiting combat mechanics and animations to use for the character.
+This development cycle was focused on creating the ability to be able to change scenes and maps in game to make the gameplay experience more enjoyable by giving the players more rooms and areas to explore since this code can be reused later on for multiple areas and maps.
 
-* [x] Create enemies characters that move in random directions
-* [x] Make enemy characters interact with the map and collide with walls
-* [x] Enemy characters to collide with the player
-* [x] Enemy character having movement animations&#x20;
+* [x] Create a second map for the player to explore
+* [x] Program a new scene with all the same features as the first but working with the new tileset and map
+* [x] Program the ability to change scenes mid game on call
+* [x] Assign this changing map to the player interacting or reaching a certain area of the map to look continuous
+* [x] Add loading animations for the next map to make the playing experience more enjoyable
 
 ## Usability Features
 
@@ -319,8 +320,8 @@ export {
 | ---- | ------------------------------------------- | -------------------------------------------------------------------------------------------------------- | --------------------------------------------------------- | --------- |
 | 1    | Run code                                    | Lizard should appear on screen on the map                                                                | As expected                                               | Pass      |
 | 2    | Wait and watch enemy                        | Lizard should move around in random directions and collide with walls prompting another direction change | As expected                                               | Pass      |
-| 3    | Move player character to collide with enemy | Lizard either to keep pushing against the character and stop or change direction                         | As expected, Lizard resists the player and pushes against | Pass      |
+| 3    | Move player character to collide with enemy | Lizard either to keep pushing against the character and stop or change direction                         | As expected, Lizard resists the player and pushes against | Passem    |
 
-{% embed url="https://youtu.be/xtesQxUoG_Q" %}
+{% embed url="https://youtu.be/NcZtR6avPNU" %}
 
-Here is a video of me demonstrating working character movements on a map made for testing and demonstrating working collisions too through debugging the player hitbox to make it more visual.
+This video demonstrates how the lizard movement operates in testing as well as showing the collisions and how this works with world borders as well as the player.
