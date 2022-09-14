@@ -10,7 +10,7 @@ This development cycle was focused on creating the ability to be able to change 
 * [x] Program a new scene with all the same features as the first but working with the new tileset and map
 * [x] Program the ability to change scenes mid game on call
 * [x] Assign this changing map to the player interacting or reaching a certain area of the map to look continuous
-* [x] Add loading animations for the next map to make the playing experience more enjoyable
+* [ ] Add loading animations for the next map to make the playing experience more enjoyable
 
 ## Usability Features
 
