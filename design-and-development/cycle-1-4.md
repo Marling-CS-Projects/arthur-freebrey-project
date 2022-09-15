@@ -75,11 +75,11 @@ Evidence for testing
 
 ### Tests
 
-| Test | Instructions                                | What I expect                                                                                            | What actually happens                                             | Pass/Fail |
-| ---- | ------------------------------------------- | -------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------- | --------- |
-| 1    | Run code                                    | Lizard should appear on screen on the map                                                                | As expected                                                       | Pass      |
-| 2    | Wait and watch enemy                        | Lizard should move around in random directions and collide with walls prompting another direction change | As expected                                                       | Pass      |
-| 3    | Move player character to collide with enemy | Lizard either to keep pushing against the character and stop or change direction                         | Lizard passes through the player character and carries on moving. | Fail      |
+| Test | Instructions                                                   | What I expect                                                                    | What actually happens                            | Pass/Fail |
+| ---- | -------------------------------------------------------------- | -------------------------------------------------------------------------------- | ------------------------------------------------ | --------- |
+| 1    | Run code                                                       | Player and map should still load on the original map                             | As expected                                      | Pass      |
+| 2    | Try iniate the game with the 'secondmap' property              | The game to start loading the secondmap and load with that tilemap and info      | As expected                                      | Pass      |
+| 3    | Run into the corner of the map where 'Next1' tiles are located | The main map scene to stop and the character to seamlessly go into the secondmap | On collision with Next1 nothing happens and the  | Fail      |
 
 After this I went back to work out why the collision issues were not working and this was due to over complication since I changed my code from checking to overlap of the lizard and player to instead giving the lizard its own collision properties.
 
