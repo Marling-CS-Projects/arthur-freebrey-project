@@ -13,12 +13,11 @@ This development cycle was focused on user accessibility and controls for the pl
 
 ### Key Variables
 
-| Variable Name    | Use                                                                                                                             |
-| ---------------- | ------------------------------------------------------------------------------------------------------------------------------- |
-| Next1            | A tilemap layer that stores tiles that the player could interact with to trigger a map and scene change                         |
-| player / faune   | Variable that stores all of the information and properties about the character.                                                 |
-| secondmap        | Stores information such as tilemap about the second scene as well as controls for the players etc                               |
-| faune.x, faune.y | Holds the player location and position on the map to determine whether there is a collision with the Next1 tile layer if needed |
+| Variable Name  | Use                                                                                                     |
+| -------------- | ------------------------------------------------------------------------------------------------------- |
+| W, A, S, D     | Variables used to store keycode information about W,A,S,D inputs to make it easier to put into the code |
+| player / faune | Variable that stores all of the information and properties about the character.                         |
+|                | Stores information such as tilemap about the second scene as well as controls for the players etc       |
 
 ### Pseudocode
 
