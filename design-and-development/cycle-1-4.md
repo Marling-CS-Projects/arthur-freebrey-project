@@ -26,146 +26,48 @@ This development cycle was focused on creating the ability to be able to change 
 ### Pseudocode
 
 ```
-const lizards
-    lizards.collideWorldBounds = true
-    lizards.collidePlayer = true
-    
-Directions = (
-    UP,
-    DOWN,
-    LEFT,
-    RIGHT
-)
-    
-procedure randomDirections = {
-    newDirection = random.math(0,3)
-    while (newDirection = exclude)
-    {
-        newDirection = random.math(0, 3)
-    }
-    return newDirection
-end procedure
+const Next1 = tilelayer('Next', 'tileset')
+Next1.collides = true
+physics.add.collider('faune', 'Next1')
 
-const movement = {
-    delay = 1500
-    direction = newDirection
-
-lizard.move(movement, loop)
+if physics.collide('faune', 'Next1') {
+    this.scene.stop()
+    this.scene.start('secondmap')
+}
 ```
 
 ## Development
 
 ### Outcome
 
-Lots of the parts of the code such as the index.html file remain the same in this second cycle but most of the change will take place in the game.ts file since that contains most of the player and world attributes.
+Despite the addition of all of the second map code in the new scene to seamlessly work with similar player controls and collision engines not much code needs to be added other than a simple function to detect collisions outside of the map to trigger a scene change.
 
 {% tabs %}
 {% tab title="game.ts" %}
 ```typescript
-const lizards = this.physics.add.group({
-        classType: Lizard,
-        createCallback: (go) => {
-            const lizGo = go as Lizard
-            lizGo.body.onCollide = true
-        }
-    })
+const Next1 = map.createLayer('Next', tileset)
+Next1.setCollisionByProperty({ collides: true })
+this.physics.add.collider(this.faune, Next1)
 
-    lizards.get(500, 300, 'lizard')
-    this.physics.add.collider(lizards, Island1)
-    this.physics.add.collider(lizards, Rocks)
-    this.physics.add.collider(lizards, Island2)
-    this.physics.add.collider(lizards, water)
-    this.physics.add.collider(lizards, House)
-    this.physics.add.collider(lizards, Housedecor)
-    this.physics.add.collider(lizards, Tree1)
-    this.physics.add.collider(lizards, Tree2)
-    this.physics.add.collider(lizards, Tree3)
-    this.physics.add.collider(lizards, Tree4)
-    this.physics.add.collider(lizards, Houseontop)
-    this.physics.add.collider(lizards, this.faune)
-
-    // const lizard = this.physics.add.sprite(500, 300, 'lizard', 'lizard_m_idle_anim_f0.png')
-
-    // lizard.anims.play('lizard-run')
-```
-{% endtab %}
-
-{% tab title="Lizard.ts" %}
-```typescript
-const randomDirection = (exclude: Direction) => {
-    let newDirection = Phaser.Math.Between(0, 3)
-    while (newDirection ===  exclude)
-    {
-        newDirection = Phaser.Math.Between(0, 3)
-    }
-    return newDirection
-
-}
-
-export default class Lizard extends Phaser.Physics.Arcade.Sprite
-{
-    private direction = Direction.RIGHT
-    private moveEvent: Phaser.Time.TimerEvent
-    constructor(scene: Phaser.Scene, x: number, y: number, texture: string, frame?: string){
-        super(scene, x, y, texture, frame)
-
-        this.anims.play('lizard-idle')
-
-        scene.physics.world.on(Phaser.Physics.Arcade.Events.TILE_COLLIDE, this.handleTileCollisions, this)
-
-        this.moveEvent = scene.time.addEvent({
-            delay: 2000,
-            callback: () => {
-                this.direction = randomDirection(this.direction)   
-            },
-            loop: true
-        })
-    }
-
-    private handleTileCollisions(go: Phaser.GameObjects.GameObject, tile: Phaser.Tilemaps.Tile){
-
-        if (go!== this)
-        {
-            return
-        }
-        this.direction = randomDirection(this.direction)   
-
-    }
-
-    preUpdate(t: number, dt: number){
-        super.preUpdate(t, dt)
-
-        let speed = 50
-
-        switch (this.direction)
-        {
-            case Direction.UP: 
-            this.setVelocity(0, -speed)
-            break
-
-            case Direction.DOWN: 
-            this.setVelocity(0, speed)
-            break
-
-            case Direction.LEFT: 
-            this.setVelocity(-speed, 0)
-            break
-
-            case Direction.RIGHT: 
-            this.setVelocity(speed, 0)
-            break
-        }
-    }
-}
+// this.physics.add.overlap(this.faune, Next1) {
+    //     console.log("working");
+    //     sleep(2000)
+    //     this.scene.stop();
+    //     this.scene.start('secondmap');
+    // }
+    
+this.physics.world.collide(this.faune, Next1, ()=>{
+    console.log("cool")
+    this.scene.stop(),
+    this.scene.start('secondmap');
+ });
 ```
 {% endtab %}
 {% endtabs %}
 
 ### Challenges
 
-Throughout this development cycle I faced many challenges in trying to develop an enemy character such as getting the code abstracted into its own file for the enemy without having to bloat the main game.ts file. The reason this became an issue was due to multiple errors found in importing the code and using it inside my create function. How I tackled this was creating individual files for both the enemy character and the animations separately so I can import them both separately leading to less conflict errors. After this change I decided to do the same for the player character making cleaner and less bloated code.\
-\
-Another challenge I faced throughout my development was getting proper collisions to work with the player character and the lizard enemy. The problem arose since Phaser has unique ways of handling collisions with things such as players and tiles which I was trying to replicate with the player. Whilst the solution ended up being quite simple with only having to make the Lizard code external to the create function allowing me to use normal phaser colliders with the player character, getting this to work and figuring it out proved to be challenging.
+Getting this simple function to swap the map proved to be quite challenging due to the inability to access tilemap properties across functions and outside the scope. How this was an issue was detecting collisions with the **Next1** variable in the update function. Since the detection for the collision needed to be constant, this had to be placed in the update function where the Next1 variable can not be accessed since it is outside of its own scope and globalising this leads to even bigger issues with Phasers engine overall.&#x20;
 
 ## Testing
 
