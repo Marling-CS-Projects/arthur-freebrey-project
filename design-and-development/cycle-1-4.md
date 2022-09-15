@@ -16,13 +16,12 @@ This development cycle was focused on creating the ability to be able to change 
 
 ### Key Variables
 
-| Variable Name         | Use                                                                                               |
-| --------------------- | ------------------------------------------------------------------------------------------------- |
-| enemy                 | Holds the information about the enemies such as hitbox information                                |
-| player / faune        | Variable that stores all of the information and properties about the character.                   |
-| left, right, up, down | Stores the information about keyboard inputs allowing them to be assigned to player movement      |
-| config                | Stores information about the game resolution, physics and other data to start the game correctly. |
-| randomDirection       | Variable that stores and calculates the new direction for the enemy character to randomly move to |
+| Variable Name    | Use                                                                                                                             |
+| ---------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| Next1            | A tilemap layer that stores tiles that the player could interact with to trigger a map and scene change                         |
+| player / faune   | Variable that stores all of the information and properties about the character.                                                 |
+| secondmap        | Stores information such as tilemap about the second scene as well as controls for the players etc                               |
+| faune.x, faune.y | Holds the player location and position on the map to determine whether there is a collision with the Next1 tile layer if needed |
 
 ### Pseudocode
 
