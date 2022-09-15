@@ -105,5 +105,6 @@ After this I decided to rework how the collision and initiation works with me no
 | 2    | Try iniate the game with the 'secondmap' property              | The game to start loading the secondmap and load with that tilemap and info      | As expected           | Pass      |
 | 3    | Run into the corner of the map where 'Next1' tiles are located | The main map scene to stop and the character to seamlessly go into the secondmap | As expected           | Pass      |
 
-\
-This video demonstrates how the lizard movement operates in testing as well as showing the collisions and how this works with world borders as well as the player.
+{% embed url="https://youtu.be/-zB6Zxc0Btc" %}
+
+This video above shows how the transition between scenes takes place when the character reaches a certain position without any transition or fading animations necessary&#x20;
