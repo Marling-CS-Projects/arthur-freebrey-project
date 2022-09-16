@@ -17,7 +17,7 @@ This development cycle was focused on user accessibility and controls for the pl
 | -------------- | ------------------------------------------------------------------------------------------------------- |
 | W, A, S, D     | Variables used to store keycode information about W,A,S,D inputs to make it easier to put into the code |
 | player / faune | Variable that stores all of the information and properties about the character.                         |
-|                | Stores information such as tilemap about the second scene as well as controls for the players etc       |
+| currentKey     | Holds information about the current key being                                                           |
 
 ### Pseudocode
 
