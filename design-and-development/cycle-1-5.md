@@ -64,27 +64,59 @@ speed = 100
 
 ### Outcome
 
-Despite the addition of all of the second map code in the new scene to seamlessly work with similar player controls and collision engines not much code needs to be added other than a simple function to detect collisions outside of the map to trigger a scene change.
+Through my development most of my development occurred in the game.ts file with declaration of variables with keymaps as well as movement code all remaining in the same file.
 
 {% tabs %}
 {% tab title="game.ts" %}
 ```typescript
-const Next1 = map.createLayer('Next', tileset)
-Next1.setCollisionByProperty({ collides: true })
-this.physics.add.collider(this.faune, Next1)
+let keyA;
+let keyS;
+let keyD;
+let keyW;
+keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
+keyS = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
+keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
+keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
 
-// this.physics.add.overlap(this.faune, Next1) {
-    //     console.log("working");
-    //     sleep(2000)
-    //     this.scene.stop();
-    //     this.scene.start('secondmap');
-    // }
-    
-this.physics.world.collide(this.faune, Next1, ()=>{
-    console.log("cool")
-    this.scene.stop(),
-    this.scene.start('secondmap');
- });
+    if (!this.cursors || !this.faune)
+        {
+            return
+        }
+        const speed = 100;
+    if (this.cursors.left?.isDown || keyA.isDown)
+        {
+            this.faune.anims.play('faune-run-side', true)
+            this.faune.setVelocity(-speed, 0)
+            this.faune.scaleX = -1
+            this.faune.body.offset.x = 24
+        }
+    else if (this.cursors.right?.isDown || keyD.isDown)
+        {
+            this.faune.anims.play('faune-run-side', true)
+            this.faune.setVelocity(speed, 0)
+            this.faune.scaleX = 1
+            this.faune.body.offset.x = 8
+
+        }
+    else if (this.cursors.up?.isDown || keyW.isDown) {
+            this.faune.anims.play('faune-run-up', true)
+            this.faune.setVelocity(0, -speed)
+        }
+
+    else if (this.cursors.down?.isDown || keyS.isDown) {
+            
+            this.faune.anims.play('faune-run-down', true)
+            this.faune.setVelocity(0, speed)
+        }
+    else
+        {
+            const parts = this.faune.anims.currentAnim.key.split('-')
+            parts[1] = 'idle'
+            this.faune.anims.play(parts.join('-'))
+            this.faune.setVelocity(0, 0)
+        }
+
+    }
 ```
 {% endtab %}
 {% endtabs %}
