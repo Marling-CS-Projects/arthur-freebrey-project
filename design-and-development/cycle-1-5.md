@@ -69,7 +69,7 @@ Through my development most of my development occurred in the game.ts file with 
 {% tabs %}
 {% tab title="game.ts" %}
 ```typescript
-let keyA;
+ cycllet keyA;
 let keyS;
 let keyD;
 let keyW;
@@ -123,7 +123,7 @@ keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
 
 ### Challenges
 
-Getting this simple function to swap the map proved to be quite challenging due to the inability to access tilemap properties across functions and outside the scope. How this was an issue was detecting collisions with the **Next1** variable in the update function. Since the detection for the collision needed to be constant, this had to be placed in the update function where the Next1 variable can not be accessed since it is outside of its own scope and globalising this leads to even bigger issues with Phasers engine overall.&#x20;
+In this development cycle i faced multiple challenges around the key priority and making sure the most recent input is the correct one. I managed to figure out how to program the multiple inputs pretty quickly but making sure the movement corresponds to the most recent input was seen to be quite challenging. &#x20;
 
 ## Testing
 
