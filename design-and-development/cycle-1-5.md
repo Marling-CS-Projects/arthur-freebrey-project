@@ -22,14 +22,42 @@ This development cycle was focused on user accessibility and controls for the pl
 ### Pseudocode
 
 ```
-const Next1 = tilelayer('Next', 'tileset')
-Next1.collides = true
-physics.add.collider('faune', 'Next1')
-
-if physics.collide('faune', 'Next1') {
-    this.scene.stop()
-    this.scene.start('secondmap')
-}
+speed = 100
+        if (cursors.left.Down || keyA.isDown)
+        {
+            z-index: 0
+            faune.anims.play('faune-run-side', true)
+            faune.setVelocity(-speed, 0)
+            currentkey = left
+        }
+        else if (cursors.right.Down || keyD.isDown)
+        {
+            z-index: 0
+            faune.anims.play('faune-run-side', true)
+            faune.setVelocity(speed, 0)
+            faune.body.offset.x = 8
+            currentkey = right
+        }
+        else if (cursors.up.Down || keyW.isDown)
+        {
+            z-index: 0
+            faune.anims.play('faune-run-up', true)
+            faune.setVelocity(0, -speed) 
+            currentkey = up
+        }
+        else if (cursors.down.Down || keyS.isDown)
+        {
+            z-index: 0
+            faune.anims.play('faune-run-down', true)
+            faune.setVelocity(0, speed)
+            currentkey = down
+        }
+        else
+        {
+            parts = 'idle'
+            this.faune.anims.play()
+            this.faune.setVelocity(0, 0)
+        }
 ```
 
 ## Development
