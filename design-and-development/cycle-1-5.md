@@ -123,7 +123,7 @@ keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
 
 ### Challenges
 
-In this development cycle i faced multiple challenges around the key priority and making sure the most recent input is the correct one. I managed to figure out how to program the multiple inputs pretty quickly but making sure the movement corresponds to the most recent input was seen to be quite challenging. &#x20;
+In this development cycle i faced multiple challenges around the key priority and making sure the most recent input is the correct one. I managed to figure out how to program the multiple inputs pretty quickly but making sure the movement corresponds to the most recent input was seen to be quite challenging.&#x20;
 
 ## Testing
 
@@ -131,36 +131,21 @@ Evidence for testing
 
 ### Tests
 
-| Test | Instructions                                                   | What I expect                                                                    | What actually happens                                                       | Pass/Fail |
-| ---- | -------------------------------------------------------------- | -------------------------------------------------------------------------------- | --------------------------------------------------------------------------- | --------- |
-| 1    | Run code                                                       | Player and map should still load on the original map                             | As expected                                                                 | Pass      |
-| 2    | Try iniate the game with the 'secondmap' property              | The game to start loading the secondmap and load with that tilemap and info      | As expected                                                                 | Pass      |
-| 3    | Run into the corner of the map where 'Next1' tiles are located | The main map scene to stop and the character to seamlessly go into the secondmap | On collision with Next1 nothing happens and the secondmap is not initiated  | Fail      |
+| Test | Instructions                                                                   | What I expect                                                                         | What actually happens                                     | Pass/Fail |
+| ---- | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------- | --------------------------------------------------------- | --------- |
+| 1    | Run code                                                                       | Player and map should still load on the original map                                  | As expected                                               | Pass      |
+| 2    | Use the W,A,S,D keys for input as well as making sure arrow keys work properly | The game to allow multiple different inputs simultaneously for ease of play-ability   | As expected                                               | Pass      |
+| 3    | Use multiple keys to see which ones are prioritised in movement                | Character moves in response to most recent input                                      | Movement inputs that are defined first remain prioritised | Fail      |
 
-After this I decided to rework how the collision and initiation works with me now checking for overlap in position and location instead of using the built in Phaser collision engine due to problems with accessing the variable outside of the create function scope. Upon this change I also removed some code I had made for fading and a delay inbetween scenes since the speed at which the player moves across maps is so quick a fade is not needed to make the transition seamless. I kept the collisions inside the game.ts file due to it may being needed later on in development so to comment this out instead seemed more convenient.
-
-{% tabs %}
-{% tab title="Game.ts" %}
-```typescript
- update(t: number, dt: number){       
-
-        // console.log(this.faune.x, this.faune.y)
-        if (this.faune.y > 450 && this.faune.x < 90){
-            this.scene.stop()
-            this.scene.start('secondmap')
-        }
-```
-{% endtab %}
-{% endtabs %}
+After this I tried to look through different documentation and for help online to try and fix my code in an attempt to make sure correct inputs are prioritised. I had tried to find equivalents to a z-index feature to make sure the right movements are being used. After a while I had realised that developing a feature like this was out of my ability and had chosen to settle with the multiple inputs but had to remain with the issue of input hierarchy.&#x20;
 
 ### Tests
 
-| Test | Instructions                                                   | What I expect                                                                    | What actually happens | Pass/Fail |
-| ---- | -------------------------------------------------------------- | -------------------------------------------------------------------------------- | --------------------- | --------- |
-| 1    | Run code                                                       | Player and map should still load on the original map                             | As expected           | Pass      |
-| 2    | Try iniate the game with the 'secondmap' property              | The game to start loading the secondmap and load with that tilemap and info      | As expected           | Pass      |
-| 3    | Run into the corner of the map where 'Next1' tiles are located | The main map scene to stop and the character to seamlessly go into the secondmap | As expected           | Pass      |
+| Test | Instructions                                                                   | What I expect                                                                         | What actually happens | Pass/Fail |
+| ---- | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------- | --------------------- | --------- |
+| 1    | Run code                                                                       | Player and map should still load on the original map                                  | As expected           | Pass      |
+| 2    | Use the W,A,S,D keys for input as well as making sure arrow keys work properly | The game to allow multiple different inputs simultaneously for ease of play-ability   | As expected           | Pass      |
 
-{% embed url="https://youtu.be/-zB6Zxc0Btc" %}
+{% embed url="https://youtu.be/95xLwv9M7yk" %}
 
-This video above shows how the transition between scenes takes place when the character reaches a certain position without any transition or fading animations necessary&#x20;
+The video above shows the different key inputs and how they are used to both control player inputs in the game so that players can choose how to play for an easier and more enjoyable experience for better user access
