@@ -100,7 +100,7 @@ export default class GameUI extends Phaser.Scene
 
 ### Challenges
 
-In this development cycle i faced multiple challenges around the key priority and making sure the most recent input is the correct one. I managed to figure out how to program the multiple inputs pretty quickly but making sure the movement corresponds to the most recent input was seen to be quite challenging.&#x20;
+I faced a few small challenges in this development cycle with an example being the index properties of the hearts taking multiple hearts away per collision or none at all. I had dealt with these small issues through unit testing and debugging to make sure that the right health integer is being passed which is how I caught the bug of the wrong parameter of hearts being passed as a number instead of the health needed.
 
 ## Testing
 
@@ -108,21 +108,12 @@ Evidence for testing
 
 ### Tests
 
-| Test | Instructions                                                                   | What I expect                                                                         | What actually happens                                     | Pass/Fail |
-| ---- | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------- | --------------------------------------------------------- | --------- |
-| 1    | Run code                                                                       | Player and map should still load on the original map                                  | As expected                                               | Pass      |
-| 2    | Use the W,A,S,D keys for input as well as making sure arrow keys work properly | The game to allow multiple different inputs simultaneously for ease of play-ability   | As expected                                               | Pass      |
-| 3    | Use multiple keys to see which ones are prioritised in movement                | Character moves in response to most recent input                                      | Movement inputs that are defined first remain prioritised | Fail      |
+| Test | Instructions                        | What I expect                                                      | What actually happens | Pass/Fail |
+| ---- | ----------------------------------- | ------------------------------------------------------------------ | --------------------- | --------- |
+| 1    | Run code                            | Player and map should still load on the original map               | As expected           | Pass      |
+| 2    | Collide with enemy and watch hearts | Hearts should decrease one at a time per collision to appear empty | As expected           | Pass      |
+| 3    | Get to 0 hearts                     | All hearts should appear empty with the character remaining dead   | As expected           | Pass      |
 
-After this I tried to look through different documentation and for help online to try and fix my code in an attempt to make sure correct inputs are prioritised. I had tried to find equivalents to a z-index feature to make sure the right movements are being used. After a while I had realised that developing a feature like this was out of my ability and had chosen to settle with the multiple inputs but had to remain with the issue of input hierarchy.&#x20;
+{% embed url="https://youtu.be/2UA0wYcPLbc" %}
 
-### Tests
-
-| Test | Instructions                                                                   | What I expect                                                                         | What actually happens | Pass/Fail |
-| ---- | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------- | --------------------- | --------- |
-| 1    | Run code                                                                       | Player and map should still load on the original map                                  | As expected           | Pass      |
-| 2    | Use the W,A,S,D keys for input as well as making sure arrow keys work properly | The game to allow multiple different inputs simultaneously for ease of play-ability   | As expected           | Pass      |
-
-{% embed url="https://youtu.be/95xLwv9M7yk" %}
-
-The video above shows the different key inputs and how they are used to both control player inputs in the game so that players can choose how to play for an easier and more enjoyable experience for better user access
+The video shows how the heart UI in the top corner decrease per collision until they reach 0 and the player character then faints and becomes immobilised.
