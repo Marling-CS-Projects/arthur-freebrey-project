@@ -6,8 +6,8 @@
 
 This development cycle I was focused on making sure I had a working health system in place with a visual UI on screen to represent the players health making the experience more interactive.
 
-* [x] Create multiple inputs for player movement such as the W,A,S,D controls as well as still having the ability to use the arrow keys if desired.
-* [x] Remove the hierarchy of inputs so that whatever key is pressed most recently is what maintains priority in movement.
+* [x] Create hearts in the corner of the screen to act as a health system
+* [x] Health system to interact with collisions and decreasing hearts on collision&#x20;
 
 ## Usability Features
 
