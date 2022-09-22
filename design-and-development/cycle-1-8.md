@@ -4,7 +4,7 @@
 
 ### Objectives
 
-This development cycle I was focused on making sure I had a working health system in place with a visual UI on screen to represent the players health making the experience more interactive.
+In this development cycle I was focused on creating a combat mechanic of throwing a weapon that can collide with the enemy and attack them to make the game more interactive
 
 * [x] Create multiple inputs for player movement such as the W,A,S,D controls as well as still having the ability to use the arrow keys if desired.
 * [x] Remove the hierarchy of inputs so that whatever key is pressed most recently is what maintains priority in movement.
