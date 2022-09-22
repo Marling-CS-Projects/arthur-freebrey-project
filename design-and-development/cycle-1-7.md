@@ -13,11 +13,11 @@ This development cycle I was focused on making sure I had a working health syste
 
 ### Key Variables
 
-| Variable Name  | Use                                                                                                     |
-| -------------- | ------------------------------------------------------------------------------------------------------- |
-| W, A, S, D     | Variables used to store keycode information about W,A,S,D inputs to make it easier to put into the code |
-| player / faune | Variable that stores all of the information and properties about the character.                         |
-| currentKey     | Holds information about the current key being                                                           |
+| Variable Name  | Use                                                                                          |
+| -------------- | -------------------------------------------------------------------------------------------- |
+| health         | Holds the number of health points a character has that corresponds with the number of points |
+| player / faune | Variable that stores all of the information and properties about the character.              |
+| hearts         | Contains information about the hearts images and their status of full or empty               |
 
 ### Pseudocode
 
