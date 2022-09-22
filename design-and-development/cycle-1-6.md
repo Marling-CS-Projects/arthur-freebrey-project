@@ -68,66 +68,92 @@ procedure handlePlayerLizardCollision(lizard, faune){
 
 ### Outcome
 
-Through my development most of my development occurred in the game.ts file with declaration of variables with keymaps as well as movement code all remaining in the same file.
+Development in this cycle was coincided with a lot more refactoring too across the whole project instead of the majority of the code being placed in the game.ts file compared to previous cycles. I did this through creating individual files with characters, collisions and event centers.
 
 {% tabs %}
+{% tab title="Faune.ts" %}
+```typescript
+enum HealthState
+{
+	IDLE,
+	DAMAGE,
+   	DEAD
+}
+
+export default class Faune extends Phaser.Physics.Arcade.Sprite
+{
+    private healthState = HealthState.IDLE
+    private damageTime = 0
+    private _health = 3
+
+handleDamage(dir: Phaser.Math.Vector2)
+	{
+		if (this._health <= 0)
+		{
+			// TODO: die
+			this.healthState = HealthState.DEAD
+			this.anims.play('faune-faint')
+			this.setVelocity(0, 0)
+		}
+		else
+		{
+			this.setVelocity(dir.x, dir.y)
+			this.setTint(0xff0000)
+			this.healthState = HealthState.DAMAGE
+			this.damageTime = 0
+		}
+	}
+preUpdate(t: number, dt: number)
+	{
+		super.preUpdate(t, dt)
+
+		switch (this.healthState)
+		{
+			case HealthState.IDLE:
+				break
+
+			case HealthState.DAMAGE:
+				this.damageTime += dt
+				if (this.damageTime >= 250)
+				{
+					this.healthState = HealthState.IDLE
+					this.setTint(0xffffff)
+					this.damageTime = 0
+				}
+				break
+		}
+	}
+```
+{% endtab %}
+
 {% tab title="game.ts" %}
 ```typescript
- cycllet keyA;
-let keyS;
-let keyD;
-let keyW;
-keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
-keyS = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
-keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
-keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
+this.playerLizardCollider = this.physics.add.collider(this.lizards, this.faune, this.handlePlayerLizardCollision, undefined, this)
 
-    if (!this.cursors || !this.faune)
-        {
-            return
-        }
-        const speed = 100;
-    if (this.cursors.left?.isDown || keyA.isDown)
-        {
-            this.faune.anims.play('faune-run-side', true)
-            this.faune.setVelocity(-speed, 0)
-            this.faune.scaleX = -1
-            this.faune.body.offset.x = 24
-        }
-    else if (this.cursors.right?.isDown || keyD.isDown)
-        {
-            this.faune.anims.play('faune-run-side', true)
-            this.faune.setVelocity(speed, 0)
-            this.faune.scaleX = 1
-            this.faune.body.offset.x = 8
+private handlePlayerLizardCollision(obj1: Phaser.GameObjects.GameObject, obj2: Phaser.GameObjects.GameObject){
+        
+        const lizard = obj2 as Lizard
+        const dx = this.faune.x - lizard.x
+        const dy = this.faune.y - lizard.y
 
-        }
-    else if (this.cursors.up?.isDown || keyW.isDown) {
-            this.faune.anims.play('faune-run-up', true)
-            this.faune.setVelocity(0, -speed)
-        }
+	const dir = new Phaser.Math.Vector2(dx, dy).normalize().scale(200)
+        this.faune.handleDamage(dir)
 
-    else if (this.cursors.down?.isDown || keyS.isDown) {
-            
-            this.faune.anims.play('faune-run-down', true)
-            this.faune.setVelocity(0, speed)
-        }
-    else
-        {
-            const parts = this.faune.anims.currentAnim.key.split('-')
-            parts[1] = 'idle'
-            this.faune.anims.play(parts.join('-'))
-            this.faune.setVelocity(0, 0)
-        }
+        sceneEvents.emit('player-health-changed', this.faune.health)
 
+        if (this.faune.health <= 0){
+            this.playerLizardCollider?.destroy()
+        }
     }
+    
+
 ```
 {% endtab %}
 {% endtabs %}
 
 ### Challenges
 
-In this development cycle i faced multiple challenges around the key priority and making sure the most recent input is the correct one. I managed to figure out how to program the multiple inputs pretty quickly but making sure the movement corresponds to the most recent input was seen to be quite challenging.&#x20;
+This development cycle involved lots of tedious challenges in trying to obtain an inverse direction for the collision since this would only work if a player was facing certain directions due to phasers built in vector engine. Another issue I faced throughout my development was trying to&#x20;
 
 ## Testing
 
