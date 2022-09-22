@@ -22,101 +22,78 @@ This development cycle I was focused on making sure I had a working health syste
 ### Pseudocode
 
 ```
-speed = 100
-        if (cursors.left.Down || keyA.isDown)
-        {
-            z-index: 0
-            faune.anims.play('faune-run-side', true)
-            faune.setVelocity(-speed, 0)
-            currentkey = left
-        }
-        else if (cursors.right.Down || keyD.isDown)
-        {
-            z-index: 0
-            faune.anims.play('faune-run-side', true)
-            faune.setVelocity(speed, 0)
-            faune.body.offset.x = 8
-            currentkey = right
-        }
-        else if (cursors.up.Down || keyW.isDown)
-        {
-            z-index: 0
-            faune.anims.play('faune-run-up', true)
-            faune.setVelocity(0, -speed) 
-            currentkey = up
-        }
-        else if (cursors.down.Down || keyS.isDown)
-        {
-            z-index: 0
-            faune.anims.play('faune-run-down', true)
-            faune.setVelocity(0, speed)
-            currentkey = down
-        }
-        else
-        {
-            parts = 'idle'
-            this.faune.anims.play()
-            this.faune.setVelocity(0, 0)
-        }
+hearts = object {
+x: 0
+y: 0 
+gap: 16
+quantity: 3
+}
+
+sceneEvents.on('player-health-changed', handlePlayerHealthChanged())
+
+procedure handlePlayerHealthChanged(health){
+    hearts.children(idx)
+    if (idx < health){
+    heart.setTexture(heart-full)
+    }
+    else{
+    heart.setTexture(heart-empty)
+    }
 ```
 
 ## Development
 
 ### Outcome
 
-Through my development most of my development occurred in the game.ts file with declaration of variables with keymaps as well as movement code all remaining in the same file.
+Throughout this development cycle I decided to abstract my code and make sure all the necessary features are contained in a new file named GameUI.ts where any future ui features can also be contained.
 
 {% tabs %}
-{% tab title="game.ts" %}
+{% tab title="GameUI.ts" %}
 ```typescript
- cycllet keyA;
-let keyS;
-let keyD;
-let keyW;
-keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
-keyS = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
-keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
-keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
-
-    if (!this.cursors || !this.faune)
-        {
-            return
-        }
-        const speed = 100;
-    if (this.cursors.left?.isDown || keyA.isDown)
-        {
-            this.faune.anims.play('faune-run-side', true)
-            this.faune.setVelocity(-speed, 0)
-            this.faune.scaleX = -1
-            this.faune.body.offset.x = 24
-        }
-    else if (this.cursors.right?.isDown || keyD.isDown)
-        {
-            this.faune.anims.play('faune-run-side', true)
-            this.faune.setVelocity(speed, 0)
-            this.faune.scaleX = 1
-            this.faune.body.offset.x = 8
-
-        }
-    else if (this.cursors.up?.isDown || keyW.isDown) {
-            this.faune.anims.play('faune-run-up', true)
-            this.faune.setVelocity(0, -speed)
-        }
-
-    else if (this.cursors.down?.isDown || keyS.isDown) {
-            
-            this.faune.anims.play('faune-run-down', true)
-            this.faune.setVelocity(0, speed)
-        }
-    else
-        {
-            const parts = this.faune.anims.currentAnim.key.split('-')
-            parts[1] = 'idle'
-            this.faune.anims.play(parts.join('-'))
-            this.faune.setVelocity(0, 0)
-        }
-
+export default class GameUI extends Phaser.Scene
+{
+    private hearts!: Phaser.GameObjects.Group
+    constructor()
+    {
+        super({key: 'game-ui'})
     }
+
+    create()
+    {
+        this.hearts = this.add.group({
+            classType: Phaser.GameObjects.Image
+        })
+
+        this.hearts.createMultiple({
+            key: 'ui-heart-full',
+            setXY: {
+                x: 460,
+                y: 230,
+                stepX: 16,
+            },
+            quantity: 3
+        })
+
+        sceneEvents.on('player-health-changed', this.handlePlayerHealthChanged, this)
+        this.events.on(Phaser.Scenes.Events.SHUTDOWN, () =>{
+            sceneEvents.off('player-health-changed', this.handlePlayerHealthChanged, this)
+        })
+    }
+
+    private handlePlayerHealthChanged(health: number){
+        this.hearts.children.each((go, idx) => {
+            const heart = go as Phaser.GameObjects.Image
+            if (idx < health)
+            {
+                heart.setTexture('ui-heart-full')
+            }
+            else 
+            {
+                heart.setTexture('ui-heart-empty')
+            }
+        })
+    }
+}
 ```
 {% endtab %}
 {% endtabs %}
