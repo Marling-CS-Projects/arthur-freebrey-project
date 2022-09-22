@@ -153,7 +153,7 @@ private handlePlayerLizardCollision(obj1: Phaser.GameObjects.GameObject, obj2: P
 
 ### Challenges
 
-This development cycle involved lots of tedious challenges in trying to obtain an inverse direction for the collision since this would only work if a player was facing certain directions due to phasers built in vector engine. Another issue I faced throughout my development was trying to&#x20;
+This development cycle involved lots of tedious challenges in trying to obtain an inverse direction for the collision since this would only work if a player was facing certain directions due to phaser's built in vector engine. Another issue I faced throughout my development was trying to regain control of the player after a collision takes place making sure the knockback is not too extreme.&#x20;
 
 ## Testing
 
@@ -161,21 +161,24 @@ Evidence for testing
 
 ### Tests
 
-| Test | Instructions                                                                   | What I expect                                                                         | What actually happens                                     | Pass/Fail |
-| ---- | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------- | --------------------------------------------------------- | --------- |
-| 1    | Run code                                                                       | Player and map should still load on the original map                                  | As expected                                               | Pass      |
-| 2    | Use the W,A,S,D keys for input as well as making sure arrow keys work properly | The game to allow multiple different inputs simultaneously for ease of play-ability   | As expected                                               | Pass      |
-| 3    | Use multiple keys to see which ones are prioritised in movement                | Character moves in response to most recent input                                      | Movement inputs that are defined first remain prioritised | Fail      |
+| Test | Instructions                                   | What I expect                                                         | What actually happens                            | Pass/Fail |
+| ---- | ---------------------------------------------- | --------------------------------------------------------------------- | ------------------------------------------------ | --------- |
+| 1    | Run code                                       | Player and map should still load on the original map                  | As expected                                      | Pass      |
+| 2    | Collide with the enemy character               | Player should turn a red tint and get knocked backwards               | As expected                                      | Pass      |
+| 3    | Try to move after collision                    | Player should be able to move after a short interval                  | Player gets stuck in knockback and loses control | Fail      |
+| 4    | Collide 3 times and then try to move character | Player should start a faint animation and lose control over character | As expected                                      | Pass      |
 
-After this I tried to look through different documentation and for help online to try and fix my code in an attempt to make sure correct inputs are prioritised. I had tried to find equivalents to a z-index feature to make sure the right movements are being used. After a while I had realised that developing a feature like this was out of my ability and had chosen to settle with the multiple inputs but had to remain with the issue of input hierarchy.&#x20;
+After this I found the error was related to the delta time being passed incorrectly to the function containing the state definition of the healthstate. After replacing the function to make sure that all the parameters are passed properly everything then worked as expected.
 
 ### Tests
 
-| Test | Instructions                                                                   | What I expect                                                                         | What actually happens | Pass/Fail |
-| ---- | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------- | --------------------- | --------- |
-| 1    | Run code                                                                       | Player and map should still load on the original map                                  | As expected           | Pass      |
-| 2    | Use the W,A,S,D keys for input as well as making sure arrow keys work properly | The game to allow multiple different inputs simultaneously for ease of play-ability   | As expected           | Pass      |
+| Test | Instructions                                   | What I expect                                                         | What actually happens | Pass/Fail |
+| ---- | ---------------------------------------------- | --------------------------------------------------------------------- | --------------------- | --------- |
+| 1    | Run code                                       | Player and map should still load on the original map                  | As expected           | Pass      |
+| 2    | Collide with the enemy character               | Player should turn a red tint and get knocked backwards               | As expected           | Pass      |
+| 3    | Try to move after collision                    | Player should be able to move after a short interval                  | As expected           | Pass      |
+| 4    | Collide 3 times and then try to move character | Player should start a faint animation and lose control over character | As expected           | Pass      |
 
-{% embed url="https://youtu.be/95xLwv9M7yk" %}
+{% embed url="https://youtu.be/0Q8kHY4cj3w" %}
 
-The video above shows the different key inputs and how they are used to both control player inputs in the game so that players can choose how to play for an easier and more enjoyable experience for better user access
+The video above shows how the player gets knocked back on collision and after 3 collisions the player proceeds to faint and become immobile.&#x20;
