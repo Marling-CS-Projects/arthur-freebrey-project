@@ -1,67 +1,63 @@
----
-description: ar
----
-
-# 2.2.2. Cycle 7
+# 2.2.2 Cycle 9
 
 ## Design
 
 ### Objectives
 
-This development cycle was aimed on creating a damage animation and system for the player to get pushed away from the enemy experiencing knockback than can work with the health system I will implement later on.
+This development cycle I was focused on making sure I had a working health system in place with a visual UI on screen to represent the players health making the experience more interactive.
 
-* [x] Create a damage system to be built on later that decreases on collision with the enemy
-* [x] Add a knockback effect temporarily immobilising the player and pushing them away on collision
-* [x] Create a visual indicator for the player being hit such as a red flash
+* [x] Create multiple inputs for player movement such as the W,A,S,D controls as well as still having the ability to use the arrow keys if desired.
+* [x] Remove the hierarchy of inputs so that whatever key is pressed most recently is what maintains priority in movement.
 
 ## Usability Features
 
 ### Key Variables
 
-| Variable Name  | Use                                                                                             |
-| -------------- | ----------------------------------------------------------------------------------------------- |
-| healthState    | Stores the different cases for healthstate of either: DEAD, IDLE, DAMAGE                        |
-| damageTime     | The number of milliseconds the player is immobilised for and until they stop sliding            |
-| player / faune | Variable that stores all of the information and properties about the character.                 |
-| dir            | Holds the inverse direction of the collision to make sure the player is eventually pushed away. |
+| Variable Name  | Use                                                                                                     |
+| -------------- | ------------------------------------------------------------------------------------------------------- |
+| W, A, S, D     | Variables used to store keycode information about W,A,S,D inputs to make it easier to put into the code |
+| player / faune | Variable that stores all of the information and properties about the character.                         |
+| currentKey     | Holds information about the current key being                                                           |
 
 ### Pseudocode
 
 ```
-procedure handlePlayerLizardCollision(lizard, faune){
-    dirx = faune.x - lizard.x
-    diry = faune.y - lizard.y
-
-    const newDir = vector(dirx, diry)
-    
-    switch (healthState)
-	{
-	case HealthState.IDLE:
-		break
-
-	case HealthState.DAMAGE:
-		damageTime += dt
-		if (damageTime >= 250)
-		{
-			healthState = HealthState.IDLE
-			this.setTint(red)
-			this.damageTime = 0
-		}
-	}
-    
-    if health <= 0
-	{
-	healthState = HealthState.DEAD
-	anims.play('faune-faint')
-	setVelocity(0, 0)
-	}
-	else
-	{
-	setVelocity(dir.x, dir.y)
-	setTint(normal)
-	healthState = HealthState.DAMAGE
-	this.damageTime = 0
-	}
+speed = 100
+        if (cursors.left.Down || keyA.isDown)
+        {
+            z-index: 0
+            faune.anims.play('faune-run-side', true)
+            faune.setVelocity(-speed, 0)
+            currentkey = left
+        }
+        else if (cursors.right.Down || keyD.isDown)
+        {
+            z-index: 0
+            faune.anims.play('faune-run-side', true)
+            faune.setVelocity(speed, 0)
+            faune.body.offset.x = 8
+            currentkey = right
+        }
+        else if (cursors.up.Down || keyW.isDown)
+        {
+            z-index: 0
+            faune.anims.play('faune-run-up', true)
+            faune.setVelocity(0, -speed) 
+            currentkey = up
+        }
+        else if (cursors.down.Down || keyS.isDown)
+        {
+            z-index: 0
+            faune.anims.play('faune-run-down', true)
+            faune.setVelocity(0, speed)
+            currentkey = down
+        }
+        else
+        {
+            parts = 'idle'
+            this.faune.anims.play()
+            this.faune.setVelocity(0, 0)
+        }
 ```
 
 ## Development
