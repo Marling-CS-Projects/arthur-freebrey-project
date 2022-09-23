@@ -4,7 +4,7 @@
 
 ### Objectives
 
-This development cycle I was focused on making sure I had a working health system in place with a visual UI on screen to represent the players health making the experience more interactive.
+This development cycle I was focused on making sure I had a working health system in place with a visual UI on screen to represent the players health making the experience more interactive. This will allow a visual representation to the player of how the health system will work throughout the whole game.
 
 * [x] Create hearts in the corner of the screen to act as a health system
 * [x] Health system to interact with collisions and decreasing hearts on collision&#x20;
