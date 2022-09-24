@@ -6,8 +6,11 @@
 
 In this development cycle I was focused on creating a combat mechanic of throwing a weapon that can collide with the enemy and attack them to make the game more interactive
 
-* [x] Create multiple inputs for player movement such as the W,A,S,D controls as well as still having the ability to use the arrow keys if desired.
-* [x] Remove the hierarchy of inputs so that whatever key is pressed most recently is what maintains priority in movement.
+* [x] Add weapon sprites to be used for the main combat system
+* [x] Have the weapon be thrown away from the player on given input
+* [x] Weapon to collide and disappear on collision with enemy or wall
+* [x] Enemy to die when being hit with the weapon
+* [x] Weapon to move in the current facing direction of the character.
 
 ## Usability Features
 

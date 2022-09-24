@@ -4,111 +4,126 @@
 
 ### Objectives
 
-This development cycle I was focused on making sure I had a working health system in place with a visual UI on screen to represent the players health making the experience more interactive. This will allow a visual representation to the player of how the health system will work throughout the whole game.
+This development cycle I was focused on making sure I had a working health system in place with a visual UI on screen to represent the players health making the experience more interactive.
 
-* [x] Create hearts in the corner of the screen to act as a health system
-* [x] Health system to interact with collisions and decreasing hearts on collision&#x20;
+* [x] Create multiple inputs for player movement such as the W,A,S,D controls as well as still having the ability to use the arrow keys if desired.
+* [x] Remove the hierarchy of inputs so that whatever key is pressed most recently is what maintains priority in movement.
 
 ## Usability Features
 
 ### Key Variables
 
-| Variable Name  | Use                                                                                          |
-| -------------- | -------------------------------------------------------------------------------------------- |
-| health         | Holds the number of health points a character has that corresponds with the number of points |
-| player / faune | Variable that stores all of the information and properties about the character.              |
-| hearts         | Contains information about the hearts images and their status of full or empty               |
+| Variable Name  | Use                                                                                                     |
+| -------------- | ------------------------------------------------------------------------------------------------------- |
+| W, A, S, D     | Variables used to store keycode information about W,A,S,D inputs to make it easier to put into the code |
+| player / faune | Variable that stores all of the information and properties about the character.                         |
+| currentKey     | Holds information about the current key being                                                           |
 
 ### Pseudocode
 
 ```
-hearts = object {
-x: 0
-y: 0 
-gap: 16
-quantity: 3
-}
-
-sceneEvents.on('player-health-changed', handlePlayerHealthChanged())
-
-procedure handlePlayerHealthChanged(health){
-    hearts.children(idx)
-    if (idx < health){
-    heart.setTexture(heart-full)
-    }
-    else{
-    heart.setTexture(heart-empty)
-    }
+speed = 100
+        if (cursors.left.Down || keyA.isDown)
+        {
+            z-index: 0
+            faune.anims.play('faune-run-side', true)
+            faune.setVelocity(-speed, 0)
+            currentkey = left
+        }
+        else if (cursors.right.Down || keyD.isDown)
+        {
+            z-index: 0
+            faune.anims.play('faune-run-side', true)
+            faune.setVelocity(speed, 0)
+            faune.body.offset.x = 8
+            currentkey = right
+        }
+        else if (cursors.up.Down || keyW.isDown)
+        {
+            z-index: 0
+            faune.anims.play('faune-run-up', true)
+            faune.setVelocity(0, -speed) 
+            currentkey = up
+        }
+        else if (cursors.down.Down || keyS.isDown)
+        {
+            z-index: 0
+            faune.anims.play('faune-run-down', true)
+            faune.setVelocity(0, speed)
+            currentkey = down
+        }
+        else
+        {
+            parts = 'idle'
+            this.faune.anims.play()
+            this.faune.setVelocity(0, 0)
+        }
 ```
 
 ## Development
 
 ### Outcome
 
-Throughout this development cycle I decided to abstract my code and make sure all the necessary features are contained in a new file named GameUI.ts where any future ui features can also be contained.
+Through my development most of my development occurred in the game.ts file with declaration of variables with keymaps as well as movement code all remaining in the same file.
 
 {% tabs %}
-{% tab title="GameUI.ts" %}
+{% tab title="game.ts" %}
 ```typescript
-export default class GameUI extends Phaser.Scene
-{
-    private hearts!: Phaser.GameObjects.Group
-    constructor()
-    {
-        super({key: 'game-ui'})
+ cycllet keyA;
+let keyS;
+let keyD;
+let keyW;
+keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
+keyS = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
+keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
+keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
+
+    if (!this.cursors || !this.faune)
+        {
+            return
+        }
+        const speed = 100;
+    if (this.cursors.left?.isDown || keyA.isDown)
+        {
+            this.faune.anims.play('faune-run-side', true)
+            this.faune.setVelocity(-speed, 0)
+            this.faune.scaleX = -1
+            this.faune.body.offset.x = 24
+        }
+    else if (this.cursors.right?.isDown || keyD.isDown)
+        {
+            this.faune.anims.play('faune-run-side', true)
+            this.faune.setVelocity(speed, 0)
+            this.faune.scaleX = 1
+            this.faune.body.offset.x = 8
+
+        }
+    else if (this.cursors.up?.isDown || keyW.isDown) {
+            this.faune.anims.play('faune-run-up', true)
+            this.faune.setVelocity(0, -speed)
+        }
+
+    else if (this.cursors.down?.isDown || keyS.isDown) {
+            
+            this.faune.anims.play('faune-run-down', true)
+            this.faune.setVelocity(0, speed)
+        }
+    else
+        {
+            const parts = this.faune.anims.currentAnim.key.split('-')
+            parts[1] = 'idle'
+            this.faune.anims.play(parts.join('-'))
+            this.faune.setVelocity(0, 0)
+        }
+
     }
-
-    create()
-    {
-        this.hearts = this.add.group({
-            classType: Phaser.GameObjects.Image
-        })
-
-        this.hearts.createMultiple({
-            key: 'ui-heart-full',
-            setXY: {
-                x: 460,
-                y: 230,
-                stepX: 16,
-            },
-            quantity: 3
-        })
 ```
 {% endtab %}
 {% endtabs %}
-
-This stage in the development was me programming the visual UI onto the screen and making sure it is part of the correct Phaser gameobject with appropriate positioning on the screen too. I achieved this through using correct class types of images that are inside of the hearts game object group.
-
-{% tabs %}
-{% tab title="GameUI.ts" %}
-```typescript
-sceneEvents.on('player-health-changed', this.handlePlayerHealthChanged, this)
-        this.events.on(Phaser.Scenes.Events.SHUTDOWN, () =>{
-            sceneEvents.off('player-health-changed', this.handlePlayerHealthChanged, this)
-        })
-    }
-
-    private handlePlayerHealthChanged(health: number){
-        this.hearts.children.each((go, idx) => {
-            const heart = go as Phaser.GameObjects.Image
-            if (idx < health)
-            {
-                heart.setTexture('ui-heart-full')
-            }
-            else 
-            {
-                heart.setTexture('ui-heart-empty')
-            }
-        } 
-```
-{% endtab %}
-{% endtabs %}
-
-This part of the code demonstrates how the sceneEvents file interacts with the collision by allowing the UI to change by changing which sprite is used. This is achieved through a built in phaser function called "sexTexture" when the idx is greater than the health.
 
 ### Challenges
 
-I faced a few small challenges in this development cycle with an example being the index properties of the hearts taking multiple hearts away per collision or none at all. I had dealt with these small issues through unit testing and debugging to make sure that the right health integer is being passed which is how I caught the bug of the wrong parameter of hearts being passed as a number instead of the health needed.
+In this development cycle i faced multiple challenges around the key priority and making sure the most recent input is the correct one. I managed to figure out how to program the multiple inputs pretty quickly but making sure the movement corresponds to the most recent input was seen to be quite challenging.&#x20;
 
 ## Testing
 
@@ -116,12 +131,21 @@ Evidence for testing
 
 ### Tests
 
-| Test | Instructions                        | What I expect                                                      | What actually happens | Pass/Fail |
-| ---- | ----------------------------------- | ------------------------------------------------------------------ | --------------------- | --------- |
-| 1    | Run code                            | Player and map should still load on the original map               | As expected           | Pass      |
-| 2    | Collide with enemy and watch hearts | Hearts should decrease one at a time per collision to appear empty | As expected           | Pass      |
-| 3    | Get to 0 hearts                     | All hearts should appear empty with the character remaining dead   | As expected           | Pass      |
+| Test | Instructions                                                                   | What I expect                                                                         | What actually happens                                     | Pass/Fail |
+| ---- | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------- | --------------------------------------------------------- | --------- |
+| 1    | Run code                                                                       | Player and map should still load on the original map                                  | As expected                                               | Pass      |
+| 2    | Use the W,A,S,D keys for input as well as making sure arrow keys work properly | The game to allow multiple different inputs simultaneously for ease of play-ability   | As expected                                               | Pass      |
+| 3    | Use multiple keys to see which ones are prioritised in movement                | Character moves in response to most recent input                                      | Movement inputs that are defined first remain prioritised | Fail      |
 
-{% embed url="https://youtu.be/2UA0wYcPLbc" %}
+After this I tried to look through different documentation and for help online to try and fix my code in an attempt to make sure correct inputs are prioritised. I had tried to find equivalents to a z-index feature to make sure the right movements are being used. After a while I had realised that developing a feature like this was out of my ability and had chosen to settle with the multiple inputs but had to remain with the issue of input hierarchy.&#x20;
 
-The video shows how the heart UI in the top corner decrease per collision until they reach 0 and the player character then faints and becomes immobilised. This will be the representation of how the health system will operate throughout the whole game unless further change is necessary later on.
+### Tests
+
+| Test | Instructions                                                                   | What I expect                                                                         | What actually happens | Pass/Fail |
+| ---- | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------- | --------------------- | --------- |
+| 1    | Run code                                                                       | Player and map should still load on the original map                                  | As expected           | Pass      |
+| 2    | Use the W,A,S,D keys for input as well as making sure arrow keys work properly | The game to allow multiple different inputs simultaneously for ease of play-ability   | As expected           | Pass      |
+
+{% embed url="https://youtu.be/95xLwv9M7yk" %}
+
+The video above shows the different key inputs and how they are used to both control player inputs in the game so that players can choose how to play for an easier and more enjoyable experience for better user access
