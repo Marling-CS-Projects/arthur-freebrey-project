@@ -7,7 +7,7 @@ description: Computer Science H446-03
 |                  |                 |
 | ---------------- | --------------- |
 | Candidate Name   | Arthur Freebrey |
-| Candidate Number | 9999            |
+| Candidate Number | 9213            |
 | Centre Name      | Marling School  |
 | Centre Number    | 57037           |
 
