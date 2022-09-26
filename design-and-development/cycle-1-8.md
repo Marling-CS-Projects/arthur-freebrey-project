@@ -150,6 +150,8 @@ private handleKnifeLizardCollision(obj1: Phaser.GameObjects.GameObject, obj2: Ph
 	{
 		this.knives.killAndHide(obj1)
 		this.lizards.killAndHide(obj2)
+		this.playerLizardCollider?.destroy()
+
 	}
 	
 	
@@ -159,7 +161,7 @@ private handleKnifeLizardCollision(obj1: Phaser.GameObjects.GameObject, obj2: Ph
 
 ### Challenges
 
-In this development cycle i faced multiple challenges around the key priority and making sure the most recent input is the correct one. I managed to figure out how to program the multiple inputs pretty quickly but making sure the movement corresponds to the most recent input was seen to be quite challenging.&#x20;
+Throughout this development cycle most of the code worked out seamlessly on the testing with only a few small select few bugs. One example of a bug found was the game freezing upon trying to destroy colliders since it was detecting multiple collisions and trying to remove a non existent element across all enemies.&#x20;
 
 ## Testing
 
@@ -167,21 +169,33 @@ Evidence for testing
 
 ### Tests
 
-| Test | Instructions                                                                   | What I expect                                                                         | What actually happens                                     | Pass/Fail |
-| ---- | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------- | --------------------------------------------------------- | --------- |
-| 1    | Run code                                                                       | Player and map should still load on the original map                                  | As expected                                               | Pass      |
-| 2    | Use the W,A,S,D keys for input as well as making sure arrow keys work properly | The game to allow multiple different inputs simultaneously for ease of play-ability   | As expected                                               | Pass      |
-| 3    | Use multiple keys to see which ones are prioritised in movement                | Character moves in response to most recent input                                      | Movement inputs that are defined first remain prioritised | Fail      |
+| Test | Instructions                                                  | What I expect                                                                  | What actually happens                                 | Pass/Fail |
+| ---- | ------------------------------------------------------------- | ------------------------------------------------------------------------------ | ----------------------------------------------------- | --------- |
+| 1    | Run code                                                      | Player and map should still load on the original map                           | As expected                                           | Pass      |
+| 2    | Press the spacebar to throw the weapon                        | A weapon should be thrown away from the player in the direction they're facing | As expected                                           | Pass      |
+| 3    | Hit a character with the weapon to see if they disappear      | The enemy disappears and so does the weapon                                    | The game freezes after detecting multiple collisions  | Fail      |
+| 4    | Hit a wall / rock with weapon to see if the weapon disappears | Weapon should disappear and go back into the group upon collision              | As expected                                           | Pass      |
 
-After this I tried to look through different documentation and for help online to try and fix my code in an attempt to make sure correct inputs are prioritised. I had tried to find equivalents to a z-index feature to make sure the right movements are being used. After a while I had realised that developing a feature like this was out of my ability and had chosen to settle with the multiple inputs but had to remain with the issue of input hierarchy.&#x20;
+After encountering this through my testing I went through many different methods in an attempt to fix this issue for the specific enemy without having to freeze and break the whole game. I did eventually settle on having to remove the line that destroys the enemy collision now only hiding and immobilising the knife and lizard instead of removing their ability to interact with players.
+
+```
+private handleKnifeLizardCollision(obj1: Phaser.GameObjects.GameObject, obj2: Phaser.GameObjects.GameObject)
+{
+	this.knives.killAndHide(obj1)
+	this.lizards.killAndHide(obj2)
+        // this.playerLizardCollider?.destroy()
+}
+```
 
 ### Tests
 
-| Test | Instructions                                                                   | What I expect                                                                         | What actually happens | Pass/Fail |
-| ---- | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------- | --------------------- | --------- |
-| 1    | Run code                                                                       | Player and map should still load on the original map                                  | As expected           | Pass      |
-| 2    | Use the W,A,S,D keys for input as well as making sure arrow keys work properly | The game to allow multiple different inputs simultaneously for ease of play-ability   | As expected           | Pass      |
+| Test | Instructions                                                  | What I expect                                                                  | What actually happens | Pass/Fail |
+| ---- | ------------------------------------------------------------- | ------------------------------------------------------------------------------ | --------------------- | --------- |
+| 1    | Run code                                                      | Player and map should still load on the original map                           | As expected           | Pass      |
+| 2    | Press the spacebar to throw the weapon                        | A weapon should be thrown away from the player in the direction they're facing | As expected           | Pass      |
+| 3    | Hit a character with the weapon to see if they disappear      | The enemy disappears and so does the weapon                                    | As expected           | Pass      |
+| 4    | Hit a wall / rock with weapon to see if the weapon disappears | Weapon should disappear and go back into the group upon collision              | As expected           | Pass      |
 
-{% embed url="https://youtu.be/95xLwv9M7yk" %}
+{% embed url="https://youtu.be/ZsE5NNBF4jw" %}
 
-The video above shows the different key inputs and how they are used to both control player inputs in the game so that players can choose how to play for an easier and more enjoyable experience for better user access
+The game footage above shows how the combat system works on a given input and how the weapon interacts with the enemy characters for a basic combat system that can be fully integrated into a more suitable map later on.
