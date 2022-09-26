@@ -16,52 +16,54 @@ In this development cycle I was focused on creating a combat mechanic of throwin
 
 ### Key Variables
 
-| Variable Name  | Use                                                                                                     |
-| -------------- | ------------------------------------------------------------------------------------------------------- |
-| W, A, S, D     | Variables used to store keycode information about W,A,S,D inputs to make it easier to put into the code |
-| player / faune | Variable that stores all of the information and properties about the character.                         |
-| currentKey     | Holds information about the current key being                                                           |
+| Variable Name  | Use                                                                                                                                          |
+| -------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| knives         | Stores information about the knife such as the sprite, direction, how many are present in the group and more as well as detecting collisions |
+| player / faune | Variable that stores all of the information and properties about the character.                                                              |
+| angle          | Calculates and holds information about which direction the weapon will be thrown from on input.                                              |
 
 ### Pseudocode
 
-```
-speed = 100
-        if (cursors.left.Down || keyA.isDown)
-        {
-            z-index: 0
-            faune.anims.play('faune-run-side', true)
-            faune.setVelocity(-speed, 0)
-            currentkey = left
-        }
-        else if (cursors.right.Down || keyD.isDown)
-        {
-            z-index: 0
-            faune.anims.play('faune-run-side', true)
-            faune.setVelocity(speed, 0)
-            faune.body.offset.x = 8
-            currentkey = right
-        }
-        else if (cursors.up.Down || keyW.isDown)
-        {
-            z-index: 0
-            faune.anims.play('faune-run-up', true)
-            faune.setVelocity(0, -speed) 
-            currentkey = up
-        }
-        else if (cursors.down.Down || keyS.isDown)
-        {
-            z-index: 0
-            faune.anims.play('faune-run-down', true)
-            faune.setVelocity(0, speed)
-            currentkey = down
-        }
-        else
-        {
-            parts = 'idle'
-            this.faune.anims.play()
-            this.faune.setVelocity(0, 0)
-        }
-```
+<pre><code>knives = physics.group(){
+class: image
+maxsize: 3
+}
+
+function throwknife(){
+    vec = math.vector(0, 0)
+    
+    if (scaleX &#x3C; 0)
+	{
+	    vec.x = -1
+	}
+	    else
+	{
+    	    vec.x = 1
+	}
+    
+    angle = vec.angle()
+    knife.setrotation(angle)
+
+<strong>    knife.x += vec.x * 16
+</strong>    knife.y += vec.y * 16
+    knife.setVelocity(vec.x * 100, vec.y * 100)
+
+
+
+if (keySpace.isDown){
+    throwknife()
+    return
+}
+
+
+add.collider(this.faune, knives, handleKnifeLizardCollision)
+    
+private handleKnifeLizardCollision(knives, lizard){
+    knives.killAndHide()
+    lizard.killAndHide()
+}
+
+</code></pre>
 
 ## Development
 
