@@ -69,59 +69,90 @@ private handleKnifeLizardCollision(knives, lizard){
 
 ### Outcome
 
-Through my development most of my development occurred in the game.ts file with declaration of variables with keymaps as well as movement code all remaining in the same file.
+The code involved for the making of the attack function in this game involved lots of coding across multiple different files to make the feature global to the character in any scene. This involved using the EventCenter.ts file I had set up earlier on in the project to emit scene variables allowing me to achieve this.
 
 {% tabs %}
-{% tab title="game.ts" %}
+{% tab title="Faune.ts" %}
 ```typescript
- cycllet keyA;
-let keyS;
-let keyD;
-let keyW;
-keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
-keyS = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
-keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
-keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
+private knives?: Phaser.Physics.Arcade.Group 
 
-    if (!this.cursors || !this.faune)
-        {
-            return
-        }
-        const speed = 100;
-    if (this.cursors.left?.isDown || keyA.isDown)
-        {
-            this.faune.anims.play('faune-run-side', true)
-            this.faune.setVelocity(-speed, 0)
-            this.faune.scaleX = -1
-            this.faune.body.offset.x = 24
-        }
-    else if (this.cursors.right?.isDown || keyD.isDown)
-        {
-            this.faune.anims.play('faune-run-side', true)
-            this.faune.setVelocity(speed, 0)
-            this.faune.scaleX = 1
-            this.faune.body.offset.x = 8
+setKnives(knives: Phaser.Physics.Arcade.Group)
+{
+	this.knives = knives
+}
 
-        }
-    else if (this.cursors.up?.isDown || keyW.isDown) {
-            this.faune.anims.play('faune-run-up', true)
-            this.faune.setVelocity(0, -speed)
-        }
+private throwKnife()
+{
+	const knife = this.knives.get(this.x, this.y, 'knife') as Phaser.Physics.Arcade.Image
+		if (!knife)
+		{
+			return
+		}
 
-    else if (this.cursors.down?.isDown || keyS.isDown) {
-            
-            this.faune.anims.play('faune-run-down', true)
-            this.faune.setVelocity(0, speed)
-        }
-    else
-        {
-            const parts = this.faune.anims.currentAnim.key.split('-')
-            parts[1] = 'idle'
-            this.faune.anims.play(parts.join('-'))
-            this.faune.setVelocity(0, 0)
-        }
+	const parts = this.anims.currentAnim.key.split('-')
+	const direction = parts[2]
+	const vec = new Phaser.Math.Vector2(0, 0)
 
-    }
+	switch (direction)
+	{
+		case 'up':
+		vec.y = -1
+		break
+
+		case 'down':
+		vec.y = 1
+		break
+
+		default:
+		case 'side':
+		if (this.scaleX < 0)
+		{
+			vec.x = -1
+		}
+		else
+		{
+			vec.x = 1
+		}
+
+		const angle = vec.angle()
+		knife.setActive(true)
+		knife.setVisible(true)
+		knife.setRotation(angle)
+
+		knife.x += vec.x * 16
+		knife.y += vec.y * 16
+
+		knife.setVelocity(vec.x * 300, vec.y * 300)
+	}
+
+update(){
+if (Phaser.Input.Keyboard.JustDown(cursors.space!)){
+			this.throwKnife()
+			return
+		}
+	}
+```
+{% endtab %}
+
+{% tab title="Game.ts" %}
+```typescript
+private knives!: Phaser.Physics.Arcade.Group
+
+this.knives = this.physics.add.group({
+        classType: Phaser.Physics.Arcade.Image,
+        maxSize: 3
+    })
+    
+this.physics.add.collider(this.knives, this.lizards, this.handleKnifeLizardCollision, undefined, this)
+this.physics.add.collider(this.knives, Island1, this.handleKnifeWallCollision, undefined, this)
+
+private handleKnifeLizardCollision(obj1: Phaser.GameObjects.GameObject, obj2: Phaser.GameObjects.GameObject)
+	{
+		this.knives.killAndHide(obj1)
+		this.lizards.killAndHide(obj2)
+	}
+	
+	
 ```
 {% endtab %}
 {% endtabs %}
