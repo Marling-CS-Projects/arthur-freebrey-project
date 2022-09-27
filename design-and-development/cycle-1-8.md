@@ -69,7 +69,9 @@ private handleKnifeLizardCollision(knives, lizard){
 
 ### Outcome
 
-The code involved for the making of the attack function in this game involved lots of coding across multiple different files to make the feature global to the character in any scene. This involved using the EventCenter.ts file I had set up earlier on in the project to emit scene variables allowing me to achieve this.
+The code involved for the making of the attack function in this game involved lots of coding across multiple different files to make the feature global to the character in any scene. This involved using the EventCenter.ts file I had set up earlier on in the project to emit scene variables allowing me to achieve this.\
+\
+&#x20;I have also had to use basic maths functions built into phaser such as the `Math.Vector` feature in order to make sure I am launching the weapon in the correct direction that the character is facing to make the gameplay easier.
 
 {% tabs %}
 {% tab title="Faune.ts" %}
