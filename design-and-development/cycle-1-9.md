@@ -1,4 +1,4 @@
-# Cycle 10
+# 2.2.2 Cycle 10
 
 ## Design
 
@@ -164,6 +164,6 @@ private handleKnifeLizardCollision(obj1: Phaser.GameObjects.GameObject, obj2: Ph
 | 1    | Run code               | Main menu scene should be presented on launch with background image and buttons | As expected           | Pass      |
 | 2    | Click the play button  | Main menu should change for the main game scene after button clicked            | As expected           | Pass      |
 
-{% embed url="https://youtu.be/ZsE5NNBF4jw" %}
+{% embed url="https://youtu.be/urRZcaXCZ60" %}
 
-The game footage above shows how the combat system works on a given input and how the weapon interacts with the enemy characters for a basic combat system that can be fully integrated into a more suitable map later on.
+The video above demonstrates the new main menu system and how the game can be initialised on click to the new play button with only small visual differences to previous cycles.
