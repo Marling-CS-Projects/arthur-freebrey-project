@@ -159,12 +159,10 @@ private handleKnifeLizardCollision(obj1: Phaser.GameObjects.GameObject, obj2: Ph
 
 ### Tests
 
-| Test | Instructions                                                  | What I expect                                                                  | What actually happens | Pass/Fail |
-| ---- | ------------------------------------------------------------- | ------------------------------------------------------------------------------ | --------------------- | --------- |
-| 1    | Run code                                                      | Player and map should still load on the original map                           | As expected           | Pass      |
-| 2    | Press the spacebar to throw the weapon                        | A weapon should be thrown away from the player in the direction they're facing | As expected           | Pass      |
-| 3    | Hit a character with the weapon to see if they disappear      | The enemy disappears and so does the weapon                                    | As expected           | Pass      |
-| 4    | Hit a wall / rock with weapon to see if the weapon disappears | Weapon should disappear and go back into the group upon collision              | As expected           | Pass      |
+| Test | Instructions           | What I expect                                                                   | What actually happens | Pass/Fail |
+| ---- | ---------------------- | ------------------------------------------------------------------------------- | --------------------- | --------- |
+| 1    | Run code               | Main menu scene should be presented on launch with background image and buttons | As expected           | Pass      |
+| 2    | Click the play button  | Main menu should change for the main game scene after button clicked            | As expected           | Pass      |
 
 {% embed url="https://youtu.be/ZsE5NNBF4jw" %}
 
