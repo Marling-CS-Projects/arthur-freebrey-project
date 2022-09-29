@@ -52,9 +52,11 @@ This development cycle was focused on just trying to develop a simple main menu 
 
 ### Outcome
 
-The code involved for the making of the attack function in this game involved lots of coding across multiple different files to make the feature global to the character in any scene. This involved using the EventCenter.ts file I had set up earlier on in the project to emit scene variables allowing me to achieve this.\
+For the development in this cycle everything was relatively simple and all went according to plan with all needed to be done was initialising new images I had created as well as setting up a new scene environment to initialise.\
 \
-&#x20;I have also had to use basic maths functions built into phaser such as the `Math.Vector` feature in order to make sure I am launching the weapon in the correct direction that the character is facing to make the gameplay easier.
+I did face small issues early on in trying to get the scene to correctly import using the PreLoader.ts file I had created but after small changes to the export in the scene most things from then went according to plan. \
+\
+One inconvenience I faced was getting everything to be centered due to the unique sizing of map I had chose early on in the game which then meant using `innerWidth / 2` was not enough to centre everything and I had to be more specific with my measurements.
 
 {% tabs %}
 {% tab title="Faune.ts" %}
