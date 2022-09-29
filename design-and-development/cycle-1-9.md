@@ -23,46 +23,30 @@ This development cycle was focused on just trying to develop a simple main menu 
 
 ### Pseudocode
 
-<pre><code>knives = physics.group(){
-class: image
-maxsize: 3
-}
-
-function throwknife(){
-    vec = math.vector(0, 0)
-    
-    if (scaleX &#x3C; 0)
-	{
-	    vec.x = -1
-	}
-	    else
-	{
-    	    vec.x = 1
-	}
-    
-    angle = vec.angle()
-    knife.setrotation(angle)
-
-<strong>    knife.x += vec.x * 16
-</strong>    knife.y += vec.y * 16
-    knife.setVelocity(vec.x * 100, vec.y * 100)
-
-
-
-if (keySpace.isDown){
-    throwknife()
-    return
-}
-
-
-add.collider(this.faune, knives, handleKnifeLizardCollision)
-    
-private handleKnifeLizardCollision(knives, lizard){
-    knives.killAndHide()
-    lizard.killAndHide()
-}
-
-</code></pre>
+<pre><code><strong>//Scene 'mainMenu'
+</strong><strong>
+</strong><strong>export Phaser Scene
+</strong><strong>
+</strong><strong>constructor(){
+</strong><strong>    super('mainMenu')
+</strong><strong>}
+</strong><strong>
+</strong><strong>preload(){
+</strong><strong>}
+</strong><strong>
+</strong><strong>create(){
+</strong><strong>    background = add.image(0,0 'background)
+</strong><strong>    logo = add.image(innerwidth / 2, innerheight / 2, 'logo')
+</strong><strong>    playbutton = add.image(innerwidth / 2, innnerheight / 2.5, 'playbutton')
+</strong><strong>    settings = add.image(innerwidth / 2, innerheight / 3.5, 'settings')
+</strong><strong>    
+</strong><strong>    playbutton.interactive()
+</strong><strong>    
+</strong><strong>    playbutton.onclick(){
+</strong><strong>        scene.stop()
+</strong><strong>        scene.start('game')
+</strong><strong>    }
+</strong><strong>}</strong></code></pre>
 
 ## Development
 
