@@ -52,103 +52,86 @@ This development cycle was focused on just trying to develop a simple main menu 
 
 ### Outcome
 
-For the development in this cycle everything was relatively simple and all went according to plan with all needed to be done was initialising new images I had created as well as setting up a new scene environment to initialise.\
-\
-I did face small issues early on in trying to get the scene to correctly import using the PreLoader.ts file I had created but after small changes to the export in the scene most things from then went according to plan. \
-\
-One inconvenience I faced was getting everything to be centered due to the unique sizing of map I had chose early on in the game which then meant using `innerWidth / 2` was not enough to centre everything and I had to be more specific with my measurements.
+For the development in this cycle everything was relatively simple and all went according to plan with all needed to be done was initialising new images I had created as well as setting up a new scene environment to initialise.
 
 {% tabs %}
-{% tab title="Faune.ts" %}
+{% tab title="mainMenu.ts" %}
 ```typescript
-private knives?: Phaser.Physics.Arcade.Group 
+import Phaser, { Scene } from 'phaser'
 
-setKnives(knives: Phaser.Physics.Arcade.Group)
+export default class Game extends Phaser.Scene
 {
-	this.knives = knives
-}
-
-private throwKnife()
-{
-	const knife = this.knives.get(this.x, this.y, 'knife') as Phaser.Physics.Arcade.Image
-		if (!knife)
-		{
-			return
-		}
-
-	const parts = this.anims.currentAnim.key.split('-')
-	const direction = parts[2]
-	const vec = new Phaser.Math.Vector2(0, 0)
-
-	switch (direction)
+	constructor()
 	{
-		case 'up':
-		vec.y = -1
-		break
-
-		case 'down':
-		vec.y = 1
-		break
-
-		default:
-		case 'side':
-		if (this.scaleX < 0)
-		{
-			vec.x = -1
-		}
-		else
-		{
-			vec.x = 1
-		}
-
-		const angle = vec.angle()
-		knife.setActive(true)
-		knife.setVisible(true)
-		knife.setRotation(angle)
-
-		knife.x += vec.x * 16
-		knife.y += vec.y * 16
-
-		knife.setVelocity(vec.x * 300, vec.y * 300)
+		super('mainMenu')
 	}
 
-update(){
-if (Phaser.Input.Keyboard.JustDown(cursors.space!)){
-			this.throwKnife()
-			return
-		}
-	}
+    preload(){}
+
+    create()
+    {
+    const background = this.add.image(130, 0, 'backgroundtest').setOrigin(0)
+    background.setScale(2.75)
+    this.add.image(innerWidth / 2.8, innerHeight / 6.9, 'logo').setOrigin(0)
+    const playbutton = this.add.image(innerWidth / 2.2, innerHeight / 2.8, 'playreal').setOrigin(0)
+    this.add.image(innerWidth / 2.2, innerHeight / 1.2, 'settings').setOrigin(0)
+    this.cameras.main.zoom = 0.59;
+
+    playbutton.setInteractive()
+    playbutton.on("pointerdown", ()=> {
+        this.scene.stop()
+        this.scene.start('game')
+    })
+}
 ```
 {% endtab %}
 
-{% tab title="Game.ts" %}
+{% tab title="PreLoader.ts" %}
 ```typescript
-private knives!: Phaser.Physics.Arcade.Group
+import Phaser from "phaser";
 
-this.knives = this.physics.add.group({
-        classType: Phaser.Physics.Arcade.Image,
-        maxSize: 3
-    })
+export default class Preloader extends Phaser.Scene
+{
+    constructor()
+    {
+        super('preloader')
+    }
+
+    preload()
+    {
+        this.load.image('tiles', 'tiles/Serene_Village_16x16_extruded.png');
+        this.load.tilemapTiledJSON('mainmap', 'tiles/mainmaptest.json');
+        this.load.image('tiles2', 'tiles/Serene_Village_16x16.png');
+        this.load.tilemapTiledJSON('map2', 'tiles/map2.json');
+        this.load.image('tiles3', 'tiles/4 BigSet.png');
+        this.load.tilemapTiledJSON('house2', 'tiles/house.json');
+        this.load.image('ui-heart-empty', 'ui/ui_heart_empty.png')
+	this.load.image('ui-heart-full', 'ui/ui_heart_full.png')
+        this.load.image('knife', 'weapons/weapon_knife.png')
+        this.load.atlas('faune', 'character/faune.png', 'character/faune.json')
+        this.load.atlas('lizard', 'enemies/lizard.png', 'enemies/lizard.json')
+        this.load.image('adam', 'character/adam.png')
+        this.load.image('background', 'ui/backgroundMenu.jpg')
+        this.load.image('backgroundtest', 'ui/backgroundtest.png')
+        this.load.image('logo', 'ui/logoreal.png')
+        this.load.image('settings', 'ui/settingsreal.png')
+        this.load.image('playreal', 'ui/playreal.png')
+    } 
     
-this.physics.add.collider(this.knives, this.lizards, this.handleKnifeLizardCollision, undefined, this)
-this.physics.add.collider(this.knives, Island1, this.handleKnifeWallCollision, undefined, this)
-
-private handleKnifeLizardCollision(obj1: Phaser.GameObjects.GameObject, obj2: Phaser.GameObjects.GameObject)
-	{
-		this.knives.killAndHide(obj1)
-		this.lizards.killAndHide(obj2)
-		this.playerLizardCollider?.destroy()
-
-	}
-	
-	
+    create()
+    {
+        this.scene.start('mainMenu')
+    }
+}
 ```
 {% endtab %}
 {% endtabs %}
 
 ### Challenges
 
-Throughout this development cycle most of the code worked out seamlessly on the testing with only a few small select few bugs. One example of a bug found was the game freezing upon trying to destroy colliders since it was detecting multiple collisions and trying to remove a non existent element across all enemies.&#x20;
+I did face small issues early on in trying to get the scene to correctly import using the PreLoader.ts file I had created but after small changes to the export in the scene to be compatible and match the rest of the scenes involved, most things from then went according to plan. \
+\
+One inconvenience I faced was getting everything to be centered due to the unique sizing of map I had chose early on in the game which then meant using `innerWidth / 2` was not enough to centre everything and I had to be more specific with my measurements.
 
 ## Testing
 
