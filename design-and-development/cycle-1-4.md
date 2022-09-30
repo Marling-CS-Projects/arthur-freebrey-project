@@ -75,154 +75,36 @@ Evidence for testing
 
 ### Tests
 
-| Test | Instructions                                | What I expect                                                                                            | What actually happens                                             | Pass/Fail |
-| ---- | ------------------------------------------- | -------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------- | --------- |
-| 1    | Run code                                    | Lizard should appear on screen on the map                                                                | As expected                                                       | Pass      |
-| 2    | Wait and watch enemy                        | Lizard should move around in random directions and collide with walls prompting another direction change | As expected                                                       | Pass      |
-| 3    | Move player character to collide with enemy | Lizard either to keep pushing against the character and stop or change direction                         | Lizard passes through the player character and carries on moving. | Fail      |
+| Test | Instructions                                                   | What I expect                                                                    | What actually happens                                                       | Pass/Fail |
+| ---- | -------------------------------------------------------------- | -------------------------------------------------------------------------------- | --------------------------------------------------------------------------- | --------- |
+| 1    | Run code                                                       | Player and map should still load on the original map                             | As expected                                                                 | Pass      |
+| 2    | Try iniate the game with the 'secondmap' property              | The game to start loading the secondmap and load with that tilemap and info      | As expected                                                                 | Pass      |
+| 3    | Run into the corner of the map where 'Next1' tiles are located | The main map scene to stop and the character to seamlessly go into the secondmap | On collision with Next1 nothing happens and the secondmap is not initiated  | Fail      |
 
-After this I went back to work out why the collision issues were not working and this was due to over complication since I changed my code from checking to overlap of the lizard and player to instead giving the lizard its own collision properties.
+After this I decided to rework how the collision and initiation works with me now checking for overlap in position and location instead of using the built in Phaser collision engine due to problems with accessing the variable outside of the create function scope. Upon this change I also removed some code I had made for fading and a delay inbetween scenes since the speed at which the player moves across maps is so quick a fade is not needed to make the transition seamless. I kept the collisions inside the game.ts file due to it may being needed later on in development so to comment this out instead seemed more convenient.
 
 {% tabs %}
 {% tab title="Game.ts" %}
 ```typescript
-createLizardAnims(this.anims)
+ update(t: number, dt: number){       
 
-const lizards = this.physics.add.group({
-        classType: Lizard,
-        createCallback: (go) => {
-            const lizGo = go as Lizard
-            lizGo.body.onCollide = true
+        // console.log(this.faune.x, this.faune.y)
+        if (this.faune.y > 450 && this.faune.x < 90){
+            this.scene.stop()
+            this.scene.start('secondmap')
         }
-    })
-
-lizards.get(500, 300, 'lizard')
-
-this.physics.add.collider(lizards, Island1)
-this.physics.add.collider(lizards, water)
-this.physics.add.collider(lizards, this.faune)Tests
-```
-{% endtab %}
-
-{% tab title="Lizard.ts" %}
-```typescript
-enum Direction 
-{
-    UP,
-    DOWN,
-    LEFT,
-    RIGHT
-}
-
-const randomDirection = (exclude: Direction) => {
-    let newDirection = Phaser.Math.Between(0, 3)
-    while (newDirection ===  exclude)
-    {
-        newDirection = Phaser.Math.Between(0, 3)
-    }
-    return newDirection
-
-}
-
-export default class Lizard extends Phaser.Physics.Arcade.Sprite
-{
-    private direction = Direction.RIGHT
-    private moveEvent: Phaser.Time.TimerEvent
-    constructor(scene: Phaser.Scene, x: number, y: number, texture: string, frame?: string){
-        super(scene, x, y, texture, frame)
-
-        this.anims.play('lizard-idle')
-
-        scene.physics.world.on(Phaser.Physics.Arcade.Events.TILE_COLLIDE, this.handleTileCollisions, this)
-
-        this.moveEvent = scene.time.addEvent({
-            delay: 2000,
-            callback: () => {
-                this.direction = randomDirection(this.direction)   
-            },
-            loop: true
-        })
-    }
-
-    destroy(fromScene?: boolean){
-        this.moveEvent.destroy()
-        super.destroy(fromScene)
-    }
-
-    private handleTileCollisions(go: Phaser.GameObjects.GameObject, tile: Phaser.Tilemaps.Tile){
-
-        if (go!== this)
-        {
-            return
-        }
-        this.direction = randomDirection(this.direction)   
-
-    }
-
-    preUpdate(t: number, dt: number){
-        super.preUpdate(t, dt)
-
-        let speed = 50
-
-        switch (this.direction)
-        {
-            case Direction.UP: 
-            this.setVelocity(0, -speed)
-            break
-
-            case Direction.DOWN: 
-            this.setVelocity(0, speed)
-            break
-
-            case Direction.LEFT: 
-            this.setVelocity(-speed, 0)
-            break
-
-            case Direction.RIGHT: 
-            this.setVelocity(speed, 0)
-            break
-        }
-    }
-}
-```
-{% endtab %}
-
-{% tab title="EnemyAnims.ts" %}
-```typescript
-import Phaser from "phaser";
-
-const createLizardAnims = (anims: Phaser.Animations.AnimationManager) => {
-    anims.create({
-        key: 'lizard-idle',
-        frames: anims.generateFrameNames('lizard', {start: 0, end: 3, prefix: 'lizard_m_idle_anim_f', suffix: '.png' }),
-        repeat: -1,
-        frameRate: 10
-    })
-
-    anims.create({
-        key: 'lizard-run',
-        frames: anims.generateFrameNames('lizard', {start: 0, end: 3, prefix: 'lizard_m_run_anim_f', suffix: '.png' }),
-        repeat: -1,
-        frameRate: 10
-    })
-}
-
-export {
-    createLizardAnims
-}
-
 ```
 {% endtab %}
 {% endtabs %}
 
 ### Tests
 
-| Test | Instructions                                | What I expect                                                                                            | What actually happens                                     | Pass/Fail |
-| ---- | ------------------------------------------- | -------------------------------------------------------------------------------------------------------- | --------------------------------------------------------- | --------- |
-| 1    | Run code                                    | Lizard should appear on screen on the map                                                                | As expected                                               | Pass      |
-| 2    | Wait and watch enemy                        | Lizard should move around in random directions and collide with walls prompting another direction change | As expected                                               | Pass      |
-| 3    | Move player character to collide with enemy | Lizard either to keep pushing against the character and stop or change direction                         | As expected, Lizard resists the player and pushes against | Passem    |
+| Test | Instructions                                                   | What I expect                                                                    | What actually happens | Pass/Fail |
+| ---- | -------------------------------------------------------------- | -------------------------------------------------------------------------------- | --------------------- | --------- |
+| 1    | Run code                                                       | Player and map should still load on the original map                             | As expected           | Pass      |
+| 2    | Try iniate the game with the 'secondmap' property              | The game to start loading the secondmap and load with that tilemap and info      | As expected           | Pass      |
+| 3    | Run into the corner of the map where 'Next1' tiles are located | The main map scene to stop and the character to seamlessly go into the secondmap | As expected           | Pass      |
 
-{% embed url="https://youtu.be/NcZtR6avPNU" %}
+{% embed url="https://youtu.be/-zB6Zxc0Btc" %}
 
-This video demonstrates how the lizard movement operates in testing as well as showing the collisions and how this works with world borders as well as the player.
+This video above shows how the transition between scenes takes place when the character reaches a certain position without any transition or fading animations necessary&#x20;

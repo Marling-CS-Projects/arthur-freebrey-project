@@ -68,66 +68,92 @@ procedure handlePlayerLizardCollision(lizard, faune){
 
 ### Outcome
 
-Through my development most of my development occurred in the game.ts file with declaration of variables with keymaps as well as movement code all remaining in the same file.
+Development in this cycle was coincided with a lot more refactoring too across the whole project instead of the majority of the code being placed in the game.ts file compared to previous cycles. I did this through creating individual files with characters, collisions and event centers.
 
 {% tabs %}
+{% tab title="Faune.ts" %}
+```typescript
+enum HealthState
+{
+	IDLE,
+	DAMAGE,
+   	DEAD
+}
+
+export default class Faune extends Phaser.Physics.Arcade.Sprite
+{
+    private healthState = HealthState.IDLE
+    private damageTime = 0
+    private _health = 3
+
+handleDamage(dir: Phaser.Math.Vector2)
+	{
+		if (this._health <= 0)
+		{
+			// TODO: die
+			this.healthState = HealthState.DEAD
+			this.anims.play('faune-faint')
+			this.setVelocity(0, 0)
+		}
+		else
+		{
+			this.setVelocity(dir.x, dir.y)
+			this.setTint(0xff0000)
+			this.healthState = HealthState.DAMAGE
+			this.damageTime = 0
+		}
+	}
+preUpdate(t: number, dt: number)
+	{
+		super.preUpdate(t, dt)
+
+		switch (this.healthState)
+		{
+			case HealthState.IDLE:
+				break
+
+			case HealthState.DAMAGE:
+				this.damageTime += dt
+				if (this.damageTime >= 250)
+				{
+					this.healthState = HealthState.IDLE
+					this.setTint(0xffffff)
+					this.damageTime = 0
+				}
+				break
+		}
+	}
+```
+{% endtab %}
+
 {% tab title="game.ts" %}
 ```typescript
- cycllet keyA;
-let keyS;
-let keyD;
-let keyW;
-keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
-keyS = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
-keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
-keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
+this.playerLizardCollider = this.physics.add.collider(this.lizards, this.faune, this.handlePlayerLizardCollision, undefined, this)
 
-    if (!this.cursors || !this.faune)
-        {
-            return
-        }
-        const speed = 100;
-    if (this.cursors.left?.isDown || keyA.isDown)
-        {
-            this.faune.anims.play('faune-run-side', true)
-            this.faune.setVelocity(-speed, 0)
-            this.faune.scaleX = -1
-            this.faune.body.offset.x = 24
-        }
-    else if (this.cursors.right?.isDown || keyD.isDown)
-        {
-            this.faune.anims.play('faune-run-side', true)
-            this.faune.setVelocity(speed, 0)
-            this.faune.scaleX = 1
-            this.faune.body.offset.x = 8
+private handlePlayerLizardCollision(obj1: Phaser.GameObjects.GameObject, obj2: Phaser.GameObjects.GameObject){
+        
+        const lizard = obj2 as Lizard
+        const dx = this.faune.x - lizard.x
+        const dy = this.faune.y - lizard.y
 
-        }
-    else if (this.cursors.up?.isDown || keyW.isDown) {
-            this.faune.anims.play('faune-run-up', true)
-            this.faune.setVelocity(0, -speed)
-        }
+	const dir = new Phaser.Math.Vector2(dx, dy).normalize().scale(200)
+        this.faune.handleDamage(dir)
 
-    else if (this.cursors.down?.isDown || keyS.isDown) {
-            
-            this.faune.anims.play('faune-run-down', true)
-            this.faune.setVelocity(0, speed)
-        }
-    else
-        {
-            const parts = this.faune.anims.currentAnim.key.split('-')
-            parts[1] = 'idle'
-            this.faune.anims.play(parts.join('-'))
-            this.faune.setVelocity(0, 0)
-        }
+        sceneEvents.emit('player-health-changed', this.faune.health)
 
+        if (this.faune.health <= 0){
+            this.playerLizardCollider?.destroy()
+        }
     }
+    
+
 ```
 {% endtab %}
 {% endtabs %}
 
 ### Challenges
 
-In this development cycle i faced multiple challenges around the key priority and making sure the most recent input is the correct one. I managed to figure out how to program the multiple inputs pretty quickly but making sure the movement corresponds to the most recent input was seen to be quite challenging.&#x20;
+This development cycle involved lots of tedious challenges in trying to obtain an inverse direction for the collision since this would only work if a player was facing certain directions due to phaser's built in vector engine. Another issue I faced throughout my development was trying to regain control of the player after a collision takes place making sure the knockback is not too extreme.&#x20;
 
 ## Testing
 
@@ -135,21 +161,24 @@ Evidence for testing
 
 ### Tests
 
-| Test | Instructions                                                                   | What I expect                                                                         | What actually happens                                     | Pass/Fail |
-| ---- | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------- | --------------------------------------------------------- | --------- |
-| 1    | Run code                                                                       | Player and map should still load on the original map                                  | As expected                                               | Pass      |
-| 2    | Use the W,A,S,D keys for input as well as making sure arrow keys work properly | The game to allow multiple different inputs simultaneously for ease of play-ability   | As expected                                               | Pass      |
-| 3    | Use multiple keys to see which ones are prioritised in movement                | Character moves in response to most recent input                                      | Movement inputs that are defined first remain prioritised | Fail      |
+| Test | Instructions                                   | What I expect                                                         | What actually happens                            | Pass/Fail |
+| ---- | ---------------------------------------------- | --------------------------------------------------------------------- | ------------------------------------------------ | --------- |
+| 1    | Run code                                       | Player and map should still load on the original map                  | As expected                                      | Pass      |
+| 2    | Collide with the enemy character               | Player should turn a red tint and get knocked backwards               | As expected                                      | Pass      |
+| 3    | Try to move after collision                    | Player should be able to move after a short interval                  | Player gets stuck in knockback and loses control | Fail      |
+| 4    | Collide 3 times and then try to move character | Player should start a faint animation and lose control over character | As expected                                      | Pass      |
 
-After this I tried to look through different documentation and for help online to try and fix my code in an attempt to make sure correct inputs are prioritised. I had tried to find equivalents to a z-index feature to make sure the right movements are being used. After a while I had realised that developing a feature like this was out of my ability and had chosen to settle with the multiple inputs but had to remain with the issue of input hierarchy.&#x20;
+After this I found the error was related to the delta time being passed incorrectly to the function containing the state definition of the healthstate. After replacing the function to make sure that all the parameters are passed properly everything then worked as expected.
 
 ### Tests
 
-| Test | Instructions                                                                   | What I expect                                                                         | What actually happens | Pass/Fail |
-| ---- | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------- | --------------------- | --------- |
-| 1    | Run code                                                                       | Player and map should still load on the original map                                  | As expected           | Pass      |
-| 2    | Use the W,A,S,D keys for input as well as making sure arrow keys work properly | The game to allow multiple different inputs simultaneously for ease of play-ability   | As expected           | Pass      |
+| Test | Instructions                                   | What I expect                                                         | What actually happens | Pass/Fail |
+| ---- | ---------------------------------------------- | --------------------------------------------------------------------- | --------------------- | --------- |
+| 1    | Run code                                       | Player and map should still load on the original map                  | As expected           | Pass      |
+| 2    | Collide with the enemy character               | Player should turn a red tint and get knocked backwards               | As expected           | Pass      |
+| 3    | Try to move after collision                    | Player should be able to move after a short interval                  | As expected           | Pass      |
+| 4    | Collide 3 times and then try to move character | Player should start a faint animation and lose control over character | As expected           | Pass      |
 
-{% embed url="https://youtu.be/95xLwv9M7yk" %}
+{% embed url="https://youtu.be/0Q8kHY4cj3w" %}
 
-The video above shows the different key inputs and how they are used to both control player inputs in the game so that players can choose how to play for an easier and more enjoyable experience for better user access
+The video above shows how the player gets knocked back on collision and after 3 collisions the player proceeds to faint and become immobile.&#x20;

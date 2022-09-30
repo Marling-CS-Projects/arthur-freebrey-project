@@ -392,6 +392,6 @@ After this I went back to work out why the sprite issues weren't working and was
 | 3    | Press arrow keys                                        | Characters sprite to change to a different corresponding animation           | As expected           | Pass      |
 | 4    | Move character into an object with collision properties | Character to stop moving and not get past the object or wall                 | As expected           | Pass      |
 
-{% embed url="https://youtu.be/xtesQxUoG_Q" %}
+{% embed url="https://youtu.be/i8In5QcQUnI" %}
 
 Here is a video of me demonstrating working character movements on a map made for testing and demonstrating working collisions too through debugging the player hitbox to make it more visual.
