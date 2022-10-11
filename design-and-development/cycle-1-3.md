@@ -4,7 +4,7 @@
 
 ### Objectives
 
-This development cycle was focused on creating simple combat mechanics  such as collisions for later levels and basic enemies will follow and attack the player. Since the player can now properly move as shown in [Cycle 2](cycle-1-1.md) I would like to add suiting combat mechanics and animations to use for the character.
+This development cycle was focused on creating simple combat mechanics  such as collisions for later levels and basic enemies will follow and attack the player. Since the player can now properly move as shown in [Cycle 2](cycle-1-1.md) I would like to add suiting enemies and animations to use for the character.
 
 * [x] Create enemies characters that move in random directions
 * [x] Make enemy characters interact with the map and collide with walls
