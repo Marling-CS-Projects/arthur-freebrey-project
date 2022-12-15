@@ -36,3 +36,17 @@
 * [4.2 Evaluation of Usability Features](4-evaluation/4.2-evaluation-of-usability-features.md)
 * [4.3 Maintenance and Future Development](4-evaluation/4.3-maintenance-and-future-development.md)
 * [Reference List](evaluation/reference-list.md)
+* [Page 1](evaluation/page-1.md)
+
+## CODE
+
+* [src](code/src/README.md)
+  * [anims](code/src/anims/README.md)
+    * [CharacterAnims.ts](code/src/anims/characteranims.ts.md)
+    * [EnemyAnims.ts](code/src/anims/enemyanims.ts.md)
+  * [characters](code/src/characters/README.md)
+    * [Faune.ts](code/src/characters/faune.ts.md)
+  * [enemies](code/src/enemies/README.md)
+    * [Lizard.ts](code/src/enemies/lizard.ts.md)
+  * [events](code/src/events/README.md)
+    * [EventCenter.ts](code/src/events/eventcenter.ts.md)
