@@ -63,6 +63,7 @@ private handleKnifeLizardCollision(knives, lizard){
     lizard.killAndHide()
 }
 
+
 </code></pre>
 
 ## Development
@@ -75,9 +76,8 @@ The code involved for the making of the attack function in this game involved lo
 
 {% tabs %}
 {% tab title="Faune.ts" %}
-```typescript
-private knives?: Phaser.Physics.Arcade.Group 
-
+<pre class="language-typescript"><code class="lang-typescript"><strong>private knives?: Phaser.Physics.Arcade.Group 
+</strong>
 setKnives(knives: Phaser.Physics.Arcade.Group)
 {
 	this.knives = knives
@@ -107,7 +107,7 @@ private throwKnife()
 
 		default:
 		case 'side':
-		if (this.scaleX < 0)
+		if (this.scaleX &#x3C; 0)
 		{
 			vec.x = -1
 		}
@@ -133,7 +133,7 @@ if (Phaser.Input.Keyboard.JustDown(cursors.space!)){
 			return
 		}
 	}
-```
+</code></pre>
 {% endtab %}
 
 {% tab title="Game.ts" %}

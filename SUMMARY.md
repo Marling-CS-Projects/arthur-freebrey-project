@@ -36,7 +36,6 @@
 * [4.2 Evaluation of Usability Features](4-evaluation/4.2-evaluation-of-usability-features.md)
 * [4.3 Maintenance and Future Development](4-evaluation/4.3-maintenance-and-future-development.md)
 * [Reference List](evaluation/reference-list.md)
-* [Page 1](evaluation/page-1.md)
 
 ## CODE
 
