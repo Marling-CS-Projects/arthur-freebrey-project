@@ -104,7 +104,7 @@ sceneEvents.on('player-health-changed', this.handlePlayerHealthChanged, this)
 {% endtab %}
 {% endtabs %}
 
-This part of the code demonstrates how the sceneEvents file interacts with the collision by allowing the UI to change by changing which sprite is used. This is achieved through a built in phaser function called "setTexture" when the idx is greater than the health.
+This part of the code demonstrates how the sceneEvents file interacts with the collision by allowing the UI to change by changing which sprite is used. This is achieved through a built in phaser function called "sexTexture" when the idx is greater than the health.
 
 ### Challenges
 
