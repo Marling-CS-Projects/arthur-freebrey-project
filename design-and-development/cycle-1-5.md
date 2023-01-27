@@ -69,7 +69,8 @@ Through my development most of my development occurred in the game.ts file with 
 {% tabs %}
 {% tab title="game.ts" %}
 ```typescript
- cycllet keyA;
+//create variables for each key and asign them to keyboard codes
+let keyA;
 let keyS;
 let keyD;
 let keyW;
@@ -83,6 +84,7 @@ keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
             return
         }
         const speed = 100;
+//check if any of the keys are being pressed down to start playing the correct animation
     if (this.cursors.left?.isDown || keyA.isDown)
         {
             this.faune.anims.play('faune-run-side', true)
@@ -110,6 +112,7 @@ keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
         }
     else
         {
+// If no keys ar ebeing pressed set the idle animation and stop the character moving
             const parts = this.faune.anims.currentAnim.key.split('-')
             parts[1] = 'idle'
             this.faune.anims.play(parts.join('-'))

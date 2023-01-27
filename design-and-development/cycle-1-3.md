@@ -70,7 +70,6 @@ const lizards = this.physics.add.group({
         }
     })
 
-// Adding the lizard group to the list of collisions with the layers
     lizards.get(500, 300, 'lizard')
     this.physics.add.collider(lizards, Island1)
     this.physics.add.collider(lizards, Rocks)
@@ -114,7 +113,6 @@ export default class Lizard extends Phaser.Physics.Arcade.Sprite
 
         scene.physics.world.on(Phaser.Physics.Arcade.Events.TILE_COLLIDE, this.handleTileCollisions, this)
 
-// Creating an event to choose a random direction that can be accessed on collision
         this.moveEvent = scene.time.addEvent({
             delay: 2000,
             callback: () => {
@@ -124,8 +122,6 @@ export default class Lizard extends Phaser.Physics.Arcade.Sprite
         })
     }
 
-// Creating an event to handle whenever the lizard collides with an object which
-// can be accessed anywhere in the project
     private handleTileCollisions(go: Phaser.GameObjects.GameObject, tile: Phaser.Tilemaps.Tile){
 
         if (go!== this)
@@ -136,8 +132,6 @@ export default class Lizard extends Phaser.Physics.Arcade.Sprite
 
     }
 
-// Updating the directions with new cases for each direction
-// that can be changed instantly if neccersary such as on a collision
     preUpdate(t: number, dt: number){
         super.preUpdate(t, dt)
 

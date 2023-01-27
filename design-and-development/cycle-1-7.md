@@ -88,9 +88,12 @@ sceneEvents.on('player-health-changed', this.handlePlayerHealthChanged, this)
         })
     }
 
+//handles the health change of the player
+//updates the ui to reflect the current health of the player
     private handlePlayerHealthChanged(health: number){
         this.hearts.children.each((go, idx) => {
             const heart = go as Phaser.GameObjects.Image
+//if the current index is less than health, the heart should be full
             if (idx < health)
             {
                 heart.setTexture('ui-heart-full')

@@ -46,7 +46,8 @@ This development cycle was focused on just trying to develop a simple main menu 
 </strong><strong>        scene.stop()
 </strong><strong>        scene.start('game')
 </strong><strong>    }
-</strong><strong>}</strong></code></pre>
+</strong><strong>}
+</strong></code></pre>
 
 ## Development
 
@@ -68,6 +69,7 @@ export default class Game extends Phaser.Scene
 
     preload(){}
 
+// adding all the images to the scene
     create()
     {
     const background = this.add.image(130, 0, 'backgroundtest').setOrigin(0)
@@ -77,7 +79,9 @@ export default class Game extends Phaser.Scene
     this.add.image(innerWidth / 2.2, innerHeight / 1.2, 'settings').setOrigin(0)
     this.cameras.main.zoom = 0.59;
 
+//allowing the play button to be interactive and allowing it to be pressed
     playbutton.setInteractive()
+// after being clicked the play button should stop the main menu scene and start the game scene
     playbutton.on("pointerdown", ()=> {
         this.scene.stop()
         this.scene.start('game')

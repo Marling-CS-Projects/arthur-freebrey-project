@@ -88,6 +88,7 @@ export default class Faune extends Phaser.Physics.Arcade.Sprite
 
 handleDamage(dir: Phaser.Math.Vector2)
 	{
+// If the player's health is 0 or less then set state to DEAD and play the 'faune-faint' animation
 		if (this._health <= 0)
 		{
 			// TODO: die
@@ -112,10 +113,12 @@ preUpdate(t: number, dt: number)
 			case HealthState.IDLE:
 				break
 
+// Increase the damageTime and check if it's greater than or equal to 250ms
 			case HealthState.DAMAGE:
 				this.damageTime += dt
 				if (this.damageTime >= 250)
 				{
+// If it is greater than 250 set the state back to IDLE, set the tint back to white thenreset the damageTime
 					this.healthState = HealthState.IDLE
 					this.setTint(0xffffff)
 					this.damageTime = 0

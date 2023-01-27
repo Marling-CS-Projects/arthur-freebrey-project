@@ -45,9 +45,13 @@ Despite the addition of all of the second map code in the new scene to seamlessl
 {% tabs %}
 {% tab title="game.ts" %}
 ```typescript
+//create a new layer called 'Next' using the map object and tileset
 const Next1 = map.createLayer('Next', tileset)
+//set collision for tiles that have the property 'collides' set to true always hence the boolean
 Next1.setCollisionByProperty({ collides: true })
+//add a collision detection between the 'faune' object and the 'Next1' layer
 this.physics.add.collider(this.faune, Next1)
+
 
 // this.physics.add.overlap(this.faune, Next1) {
     //     console.log("working");
@@ -56,6 +60,8 @@ this.physics.add.collider(this.faune, Next1)
     //     this.scene.start('secondmap');
     // }
     
+
+//when the player collides with the 'Next1' layer, the current scene is stopped and the 'secondmap' scene is started
 this.physics.world.collide(this.faune, Next1, ()=>{
     console.log("cool")
     this.scene.stop(),

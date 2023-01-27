@@ -78,11 +78,13 @@ The code involved for the making of the attack function in this game involved lo
 {% tab title="Faune.ts" %}
 <pre class="language-typescript"><code class="lang-typescript"><strong>private knives?: Phaser.Physics.Arcade.Group 
 </strong>
+//set the knives group to the appropraite player group
 setKnives(knives: Phaser.Physics.Arcade.Group)
 {
 	this.knives = knives
 }
 
+~//get knives for the chracter but return null if theres none available
 private throwKnife()
 {
 	const knife = this.knives.get(this.x, this.y, 'knife') as Phaser.Physics.Arcade.Image
@@ -91,10 +93,12 @@ private throwKnife()
 			return
 		}
 
+// get the current animation direction of the player character
 	const parts = this.anims.currentAnim.key.split('-')
 	const direction = parts[2]
 	const vec = new Phaser.Math.Vector2(0, 0)
 
+// set the velocity vector based on the animation direction
 	switch (direction)
 	{
 		case 'up':
@@ -116,6 +120,7 @@ private throwKnife()
 			vec.x = 1
 		}
 
+// calculate the angle and set the knife's properties
 		const angle = vec.angle()
 		knife.setActive(true)
 		knife.setVisible(true)
@@ -127,6 +132,7 @@ private throwKnife()
 		knife.setVelocity(vec.x * 300, vec.y * 300)
 	}
 
+// check if the spacebar is pressed and call the throwKnife function
 update(){
 if (Phaser.Input.Keyboard.JustDown(cursors.space!)){
 			this.throwKnife()
