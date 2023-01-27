@@ -82,7 +82,7 @@ end procedure
 
 ### Outcome
 
-Lots of the parts of the code such as the index.html file remain the same in this second cycle but most of the change will take place in the game.ts file since that contains most of the player and world attributes.
+Lots of the parts of the code such as the index.html file remain the same in this second cycle but most of the change will take place in the game.ts file since that contains most of the player and world attributes. I have also separated out parts of the code into their own files such as the Preloading features to make the main.ts file less crowded and easier to read.
 
 {% tabs %}
 {% tab title="Preloader.ts" %}
