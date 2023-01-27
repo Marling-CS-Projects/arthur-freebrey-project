@@ -107,8 +107,11 @@ export default class Game extends Phaser.Scene {
     super("game");
   }
 
+// Preloading empty due to it all being done seperately 
   preload() {}
 
+//Creates individual layers for each part of the map corresponding to the 
+//JSON containing their properties such as collision
   create() {
     const map = this.make.tilemap({ key: "map-1" });
     const tileset = map.addTilesetImage("Serene_Village_XP", "tiles");
@@ -143,6 +146,7 @@ export default class Preloader extends Phaser.Scene {
   constructor() {
     super("preloader");
   }
+//Loading the images of the tiles and JSON of how theyre laid out to register the map
   preload() {
     this.load.image("tiles", "tiles/main_tiles.png");
     this.load.tilemapTiledJSON("map-1", "tiles/map-1.json");
