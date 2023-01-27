@@ -82,7 +82,7 @@ end procedure
 
 ### Outcome
 
-Lots of the parts of the code such as the index.html file remain the same in this second cycle but most of the change will take place in the game.ts file since that contains most of the player and world attributes. I have also separated out parts of the code into their own files such as the Preloading features to make the game.ts and main.ts less crowded and easier to read.
+Lots of the parts of the code such as the index.html file remain the same in this second cycle but most of the change will take place in the game.ts file since that contains most of the player and world attributes.
 
 {% tabs %}
 {% tab title="Preloader.ts" %}
@@ -95,8 +95,7 @@ export default class Preloader extends Phaser.Scene
     {
         super('preloader')
     }
-// Preloading now loads sprites for the character and the JSON
-// that has information on the frames to work with the animations 
+
     preload()
     {
         this.load.image('tiles', 'tiles/Serene_Village_16x16_extruded.png');
@@ -158,8 +157,6 @@ export default new Phaser.Game(config)
        Tree3.setCollisionByProperty({ collides: true })
        Tree4.setCollisionByProperty({ collides: true })
 
-// Creates physics object for the character and setting the idle frame
-// Also setting the property of the object and sizes for the collision border
     this.faune = this.physics.add.sprite(480, 235, 'faune', 'walk-down-3.png')
     this.faune.body.setSize(this.faune.width * 0.8, this.faune.height * 0.7)
 
@@ -203,7 +200,7 @@ export default new Phaser.Game(config)
 
     })
 
-//Adding colliders to the layers neccersary
+
     this.faune.anims.play('faune-idle-down')
     this.physics.add.collider(this.faune, Island1)
     this.physics.add.collider(this.faune, Rocks)
@@ -223,8 +220,7 @@ export default new Phaser.Game(config)
 
     }
     
-//Updates every frame to check for whether any keys are being pressed and 
-//if they are update with the corresponding animation defined earlier
+
     update(t: number, dt: number){
         if (!this.cursors || !this.faune)
         {
@@ -298,7 +294,6 @@ After this I went back to work out why the sprite issues weren't working and was
 
 {% code title="game.ts" %}
 ```typescript
-   //Changing the border to size to feel more responsive 
     this.faune = this.physics.add.sprite(480, 235, 'faune', 'walk-down-3.png')
     this.faune.body.setSize(this.faune.width * 0.5, this.faune.height * 0.7)
 
@@ -318,7 +313,6 @@ After this I went back to work out why the sprite issues weren't working and was
     })
     
 
-// Changing the animations to go up in integers that correspond with the correct frames of the animation
     this.anims.create({ 
         key: 'faune-run-down',
         frames: this.anims.generateFrameNames('faune', {start: 1, end: 8, prefix: 'run-down-', suffix: '.png'}),

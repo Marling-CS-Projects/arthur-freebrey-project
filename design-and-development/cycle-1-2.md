@@ -81,6 +81,9 @@ Changes I had to make to the Game.ts involved having to give specific measuremen
 {% tabs %}
 {% tab title="Game.ts" %}
 ```typescript
+
+// Creating a new camera object that follows the faune character with the boolean
+// true to keep it constantly following and setting borders for the map
 this.cameras.main.startFollow(this.faune, true,)
 this.cameras.main.setBounds(-436, -200.5, 1833, 887, true)
 // this.cameras.main.centerOn(innerWidth, innerHeight)
